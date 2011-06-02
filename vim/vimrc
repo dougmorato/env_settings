@@ -184,11 +184,11 @@ if has("gui_running")
   set guioptions-=T
   set t_Co=256
   set background=dark
-  colorscheme vibrantink
+  colorscheme solarized
   set transparency=10
   set nu
 else
-  colorscheme vibrantink   
+  colorscheme solarized   
   set background=dark   
   set nu
 endif

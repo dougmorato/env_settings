@@ -12,15 +12,8 @@ enviroment customizations such as Vim, Bash, Zsh, Git and Mercurial.
 from fabric.api import run, cd, env
 from fabric.contrib.files import exists
 
-def install_vim_customizations():
+def _install_vim_customizations(env_settings_dir, user_home_dir):
     "Setup and install vim customizations."
-    #Setup basic necessary variables
-    user_home_dir = run('echo $HOME')
-    with cd(user_home_dir):
-        env_settings_dir = str(user_home_dir) + "/.env_settings"
-    if not exists(env_settings_dir):
-        run('mkdir %s'  % env_settings_dir)
-
     # Add the vim repositories below
     vim_repositories = [
         "git://github.com/alfredodeza/pytest.vim.git",
@@ -52,7 +45,7 @@ def install_vim_customizations():
         "git://github.com/vim-scripts/TaskList.vim.git",
         "git://github.com/wincent/Command-T.git",
     ]
-    vim_bundle_dir = str(env_settings_dir) + "/vim/bundle/"
+    vim_bundle_dir = env_settings_dir + "/vim/bundle/"
     with cd(env_settings_dir):
         run("git init .")
         for repository in vim_repositories:
@@ -64,30 +57,56 @@ def install_vim_customizations():
                 run('git submodule add %s %s' % (repository, repository_bundle_dir))
             elif 'hg' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.hg')
-                repository_bundle_dir = str(vim_bundle_dir) + str(repository_dir)
+                repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
     run('ln -s %s/vim/vimrc %s/.vimrc' % (env_settings_dir, user_home_dir))
+    #install Command-T extension because we need to
+    command_t_dir = vim_bundle_dir + "Command-T/"
+    with cd(command_t_dir):
+        run('rake make')
 
-def install_zsh_customizations():
+    #system = prompt("Are you deploying to a mac, windows or linux")
+    #run("""echo 'fun! MySys()
+    #return "$1"
+    #endfun
+    #set runtimepath=~/.env_settings/vim,\$VIMRUNTIME
+    #source ~/.env_settings/vim/vimrc
+    #helptags ~/.env_settings/vim/doc' > ~/.vimrc'""")
+
+
+def _install_zsh_customizations():
     pass
 
-def install_bash_customizations():
+def _install_bash_customizations():
     pass
 
-def install_virtualenv_customizations():
+def _install_virtualenv_customizations():
     pass
 
-def install_git_customizations():
+def _install_git_customizations():
     pass
 
-def install_mercurial_customizations():
+def _install_mercurial_customizations():
     pass
 
-def install_vcprompt():
+def _install_vcprompt():
     pass
 
 def customize():
-    pass
+    run("aptitude install -y rake")
+    with cd('/tmp'):
+        run('git clone git://github.com/dfamorato/env_settings.git')
+    #Setup basic necessary variables
+    user_home_dir = run('echo $HOME')
+    env_settings_dir = user_home_dir + "/.env_settings"
+    if not exists(env_settings_dir):
+            run('mkdir %s'  % env_settings_dir)
+    #move data from cloned git repo to permanent directory
+    run('mv -f /tmp/env_settings/* %s/' % env_settings_dir)
+    run('rm -rf /tmp/env_settings')
+
+    #start to install customizations
+    _install_vim_customizations(env_settings_dir, user_home_dir)
 
 def update():
     pass

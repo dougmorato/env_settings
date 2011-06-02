@@ -1,0 +1,7 @@
+
+fun! MySys()
+   return "$1"
+endfun
+set runtimepath=~/.env_settings/vim,~/.env_settings/vim/after,\$VIMRUNTIME
+source ~/.env_settings/vim/vimrc
+helptags ~/.env_settings/vim/doc
