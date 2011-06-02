@@ -1,0 +1,12 @@
+hgnested
+========
+
+Mercurial extension to work with rietveld code review.
+
+It was inspired by the hg nested extension.
+
+This extension allow to upload to the rietveld code review website, creating a
+new issue and remembering its ID for future patches.
+
+See `hg help hgreview` for the complete list of commands.
+
