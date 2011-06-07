@@ -21,7 +21,6 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         "git://github.com/fs111/pydoc.vim.git",
         "git://github.com/kevinw/pyflakes-vim.git",
         "git://github.com/mileszs/ack.vim.git",
-        "git://github.com/msanders/snipmate.vim.git",
         "git://github.com/scrooloose/nerdcommenter.git",
         "git://github.com/scrooloose/nerdtree.git",
         "git://github.com/sjl/gundo.vim.git",
@@ -44,7 +43,18 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         "git://github.com/nvie/vim-pep8.git",
         "git://github.com/vim-scripts/TaskList.vim.git",
         "git://github.com/wincent/Command-T.git",
-    ]
+        "git://github.com/spf13/PIV.git",
+        "git://github.com/ervandew/supertab.git",
+        "git://github.com/Raimondi/delimitMate.git",
+        "git://github.com/vim-scripts/matchit.zip.git",
+        "git://github.com/tomtom/checksyntax_vim.git",
+        "git://github.com/spf13/vim-easytags.git",
+        "git://github.com/tomtom/tlib_vim.git",
+        "git://github.com/MarcWeber/vim-addon-mw-utils.git",
+        "git://github.com/spf13/snipmate.vim.git",
+        "git://github.com/spf13/snipmate-snippets.git"
+        ]
+
     vim_bundle_dir = env_settings_dir + "/vim/bundle/"
     with cd(env_settings_dir):
         run("git init .")
@@ -54,25 +64,21 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
             if 'git' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.git')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
-                run('git submodule add %s %s' % (repository, repository_bundle_dir))
+                run('git submodule add %s %s' %
+                            (repository, repository_bundle_dir))
             elif 'hg' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.hg')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
-    run('ln -s %s/vim/vimrc %s/.vimrc' % (env_settings_dir, user_home_dir))
-    #install Command-T extension because we need to
+    run('ln -s %s/vim/vimrc_redirector %s/.vimrc' %
+                            (env_settings_dir, user_home_dir))
+    run('ln -s %ssnipmate-snippets %s/vim/snippets' %
+                            (vim_bundle_dir, env_settings_dir))
+
+    #install Command-T with rake extension because we need to
     command_t_dir = vim_bundle_dir + "Command-T/"
     with cd(command_t_dir):
         run('rake make')
-
-    #system = prompt("Are you deploying to a mac, windows or linux")
-    #run("""echo 'fun! MySys()
-    #return "$1"
-    #endfun
-    #set runtimepath=~/.env_settings/vim,\$VIMRUNTIME
-    #source ~/.env_settings/vim/vimrc
-    #helptags ~/.env_settings/vim/doc' > ~/.vimrc'""")
-
 
 def _install_zsh_customizations():
     pass
@@ -93,7 +99,13 @@ def _install_vcprompt():
     pass
 
 def customize():
-    run("aptitude install -y rake")
+    target_os = prompt("What is the OS you are deploying to: mac,linux")
+    if "LINUX" or "linux" in target_os:
+        run("aptitude update")
+        run("aptitude install -y rake python-pip python-dev build-essential")
+        run("aptitude install -y git-core mercurial")
+        run("pip install pyflakes")
+        run("pip install ipython")
     with cd('/tmp'):
         run('git clone git://github.com/dfamorato/env_settings.git')
     #Setup basic necessary variables
