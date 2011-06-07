@@ -9,7 +9,7 @@ enviroment customizations such as Vim, Bash, Zsh, Git and Mercurial.
 :license: WTFPL . Check http://en.wikipedia.org/wiki/WTFPL for details.
 
 """
-from fabric.api import run, cd, env
+from fabric.api import run, cd, prompt
 from fabric.contrib.files import exists
 
 def _install_vim_customizations(env_settings_dir, user_home_dir):
@@ -99,7 +99,7 @@ def _install_vcprompt():
     pass
 
 def customize():
-    target_os = prompt("What is the OS you are deploying to: mac,linux")
+    target_os = prompt("What is the OS you are deploying to: mac or linux: ")
     if "LINUX" or "linux" in target_os:
         run("aptitude update")
         run("aptitude install -y rake python-pip python-dev build-essential")
