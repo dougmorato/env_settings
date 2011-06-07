@@ -111,6 +111,8 @@ def customize():
     else:
         sudo("brew install exuberant-ctags")
         run("pip install ipython")
+    #clone base settings from github
+    run('git clone git://github.com/dfamorato/env_settings.git')
     #Setup basic necessary variables
     user_home_dir = run('echo $HOME')
     env_settings_dir = user_home_dir + "/.env_settings"
