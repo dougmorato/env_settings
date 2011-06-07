@@ -9,7 +9,7 @@ enviroment customizations such as Vim, Bash, Zsh, Git and Mercurial.
 :license: WTFPL . Check http://en.wikipedia.org/wiki/WTFPL for details.
 
 """
-from fabric.api import run, cd, prompt
+from fabric.api import run, cd, prompt, sudo
 from fabric.contrib.files import exists
 
 def _install_vim_customizations(env_settings_dir, user_home_dir):
@@ -103,10 +103,16 @@ def customize():
     if "LINUX" or "linux" in target_os:
         run("aptitude update")
         run("aptitude install -y rake python-pip python-dev build-essential")
-        run("aptitude install -y git-core mercurial")
-        run("pip install pyflakes")
+        run("aptitude install -y git-core mercurial exuberant-ctags")
+        run("pip install ipython")
+    else:
+        sudo("brew install exuberant-ctags")
         run("pip install ipython")
     with cd('/tmp'):
+        #install fucking pyflakes from git source so it doesn't bitch anymore
+        run('git clone git://github.com/kevinw/pyflakes.git')
+        with cd("./pyflakes"):
+            run("python setup.py install")
         run('git clone git://github.com/dfamorato/env_settings.git')
     #Setup basic necessary variables
     user_home_dir = run('echo $HOME')
