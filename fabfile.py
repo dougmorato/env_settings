@@ -70,6 +70,9 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                 repository_dir = repository_guess.rstrip('.hg')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
+        #FUCKING HACK TO MAKE FUCKING PYFLAKES WORK
+        run("git submodule add git://github.com/kevinw/pyflakes.git"
+                " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
     run('ln -s %s/vim/vimrc_redirector %s/.vimrc' %
                             (env_settings_dir, user_home_dir))
     run('ln -s %ssnipmate-snippets %s/vim/snippets' %
@@ -108,12 +111,6 @@ def customize():
     else:
         sudo("brew install exuberant-ctags")
         run("pip install ipython")
-    with cd('/tmp'):
-        #install fucking pyflakes from git source so it doesn't bitch anymore
-        run('git clone git://github.com/kevinw/pyflakes.git')
-        with cd("./pyflakes"):
-            run("python setup.py install")
-        run('git clone git://github.com/dfamorato/env_settings.git')
     #Setup basic necessary variables
     user_home_dir = run('echo $HOME')
     env_settings_dir = user_home_dir + "/.env_settings"
