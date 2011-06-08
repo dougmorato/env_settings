@@ -73,7 +73,9 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         #FUCKING HACK TO MAKE FUCKING PYFLAKES WORK
         run("git submodule add git://github.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
-    run('ln -s %s/vim/vimrc_redirector %s/.vimrc' %
+        with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
+            run("python setup.py install")
+        run('ln -s %s/vim/vimrc_redirector %s/.vimrc' %
                             (env_settings_dir, user_home_dir))
     run('ln -s %ssnipmate-snippets %s/vim/snippets' %
                             (vim_bundle_dir, env_settings_dir))
@@ -106,8 +108,9 @@ def customize():
     if "LINUX" or "linux" in target_os:
         run("aptitude update")
         run("aptitude install -y rake python-pip python-dev build-essential")
-        run("aptitude install -y git-core mercurial exuberant-ctags")
+        run("aptitude install -y git-core mercurial pyflakes exuberant-ctags")
         run("pip install ipython")
+
     else:
         sudo("brew install exuberant-ctags")
         run("pip install ipython")
