@@ -120,4 +120,3 @@ hi User1 guifg=#000000 guibg=#84E12E gui=bold
 
 hi clear htmlTagN
 hi link htmlTagN Typedef
-

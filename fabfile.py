@@ -107,8 +107,9 @@ def customize():
     target_os = prompt("What is the OS you are deploying to: mac or linux: ")
     if "LINUX" or "linux" in target_os:
         run("aptitude update")
-        run("aptitude install -y rake python-pip python-dev build-essential")
-        run("aptitude install -y git-core mercurial pyflakes exuberant-ctags")
+        run("aptitude install -y rake ruby-dev")
+        run("aptitude install -y python-pip python-dev build-essential")
+        run("aptitude install -y git-core mercurial exuberant-ctags")
         run("pip install ipython")
 
     else:

@@ -1,8 +1,8 @@
 " Vim color file --- psc (peak sea color) "Lite version"
 " Maintainer:	Pan, Shi Zhu <Go to the following URL for my email>
 " URL:		http://vim.sourceforge.net/scripts/script.php?script_id=760
-" Last Change:	5 Feb 2010
-" Version:	3.4
+" Last Change:	31 Oct 2008
+" Version:	3.3
 "
 "	Comments and e-mails are welcomed, thanks.
 "
@@ -16,8 +16,9 @@
 " Note: Please set the background option in your .vimrc and/or .gvimrc
 "
 "	It is much better *not* to set 'background' option inside
-"	a colorscheme file.  because ":set background" improperly
-"	may cause colorscheme be sourced twice
+"	a colorscheme file.  because ":set background" inside a colorscheme
+"	may cause colorscheme be sourced twice or in the worst case result an
+"	infinite loop.
 "
 " Color Scheme Overview: 
 "	:ru syntax/hitest.vim
@@ -44,7 +45,7 @@ if &background=='light'
   " LIGHT COLOR DEFINE START
 
   hi Normal		guifg=#000000	guibg=#e0e0e0	gui=NONE
-  hi Search		guifg=White	guibg=DarkRed	gui=NONE
+  hi Search		guifg=NONE	guibg=#f8f8f8	gui=NONE
   hi Visual		guifg=NONE	guibg=#a6caf0	gui=NONE
   hi Cursor		guifg=#f0f0f0	guibg=#008000	gui=NONE
   " The idea of CursorIM is pretty good, however, the feature is still buggy
@@ -84,7 +85,7 @@ if &background=='light'
   hi DiffText		guifg=NONE	guibg=#c0e080	gui=NONE
   hi SignColumn		guifg=fg	guibg=#90e090	gui=NONE
 
-  hi IncSearch		guifg=White	guibg=DarkRed	gui=NONE
+  hi IncSearch		guifg=#f0f0f0	guibg=#806060	gui=NONE
   hi StatusLineNC	guifg=fg	guibg=#c0c0c0	gui=NONE
   hi VertSplit		guifg=fg	guibg=#c0c0c0	gui=NONE
   hi Underlined		guifg=#6a5acd	guibg=NONE	gui=underline
@@ -148,18 +149,13 @@ if &background=='light'
 
   " gui define for background=light end here
 
-  " generally, a dumb terminal is dark, we assume the light terminal has 256
-  " color support.
-  if &t_Co==8 || &t_Co==16
-    set t_Co=256
-  endif
   if &t_Co==256
     " 256color light terminal support here
 
     hi Normal		ctermfg=16	ctermbg=254	cterm=NONE
     " Comment/Uncomment the following line to disable/enable transparency
     "hi Normal		ctermfg=16	ctermbg=NONE	cterm=NONE
-    hi Search		ctermfg=White	ctermbg=DarkRed	cterm=NONE
+    hi Search		ctermfg=NONE	ctermbg=231	cterm=NONE
     hi Visual		ctermfg=NONE	ctermbg=153	cterm=NONE
     hi Cursor		ctermfg=255	ctermbg=28	cterm=NONE
     " hi CursorIM	ctermfg=255	ctermbg=90
@@ -197,7 +193,7 @@ if &background=='light'
     hi DiffText		ctermfg=NONE	ctermbg=150	cterm=NONE
     hi SignColumn	ctermfg=fg	ctermbg=114	cterm=NONE
 
-    hi IncSearch	ctermfg=White	ctermbg=DarkRed	cterm=NONE
+    hi IncSearch	ctermfg=255	ctermbg=95	cterm=NONE
     hi StatusLineNC	ctermfg=fg	ctermbg=250	cterm=NONE
     hi VertSplit	ctermfg=fg	ctermbg=250	cterm=NONE
     hi Underlined	ctermfg=62	ctermbg=NONE	cterm=underline
@@ -252,7 +248,7 @@ if &background=='light'
     hi ModeMsg		cterm=bold
     hi TabLineSel	cterm=bold
 
-    "hi lCursor		ctermfg=bg	ctermbg=fg	cterm=NONE
+    hi lCursor		ctermfg=bg	ctermbg=fg	cterm=NONE
   endif " t_Co==256
   " }}}2
 elseif &background=='dark' 
@@ -270,7 +266,7 @@ elseif &background=='dark'
   hi Special		guifg=#e0c060	guibg=NONE	gui=NONE
   hi Error		guifg=#f08060	guibg=NONE	gui=NONE
   hi Todo		guifg=#800000	guibg=#d0d090	gui=NONE
-  hi Search		guifg=White	guibg=DarkRed	gui=NONE
+  hi Search		guifg=NONE	guibg=#800000	gui=NONE
   hi Visual		guifg=#000000	guibg=#a6caf0	gui=NONE
   hi Cursor		guifg=#000000	guibg=#00f000	gui=NONE
   " NOTE THIS IS IN THE COOL SECTION
@@ -288,14 +284,14 @@ elseif &background=='dark'
   hi Title		guifg=#f0c0f0	guibg=NONE	gui=NONE
   hi WarningMsg		guifg=#f08060	guibg=NONE	gui=NONE
   hi WildMenu		guifg=#000000	guibg=#d0d090	gui=NONE
-  hi Folded		guifg=#aaaaaa	guibg=#333333	gui=NONE
-  hi FoldColumn		guifg=#e0e0e0	guibg=#333333	gui=NONE
+  hi Folded		guifg=NONE	guibg=#004000	gui=NONE
+  hi FoldColumn		guifg=#e0e0e0	guibg=#008000	gui=NONE
   hi DiffAdd		guifg=NONE	guibg=#000080	gui=NONE
   hi DiffChange		guifg=NONE	guibg=#800080	gui=NONE
   hi DiffDelete		guifg=#6080f0	guibg=#202020	gui=NONE
   hi DiffText		guifg=#000000	guibg=#c0e080	gui=NONE
   hi SignColumn		guifg=#e0e0e0	guibg=#008000	gui=NONE
-  hi IncSearch		guifg=White	guibg=DarkRed	gui=NONE
+  hi IncSearch		guifg=#000000	guibg=#d0d0d0	gui=NONE
   hi StatusLineNC	guifg=#000000	guibg=#c0c0c0	gui=NONE
   hi VertSplit		guifg=#000000	guibg=#c0c0c0	gui=NONE
   hi Underlined		guifg=#80a0ff	guibg=NONE	gui=underline 
@@ -504,7 +500,7 @@ elseif &background=='dark'
     hi Special		ctermfg=179	ctermbg=NONE	cterm=NONE
     hi Error		ctermfg=209	ctermbg=NONE	cterm=NONE
     hi Todo		ctermfg=88	ctermbg=186	cterm=NONE
-    hi Search		ctermfg=White	ctermbg=DarkRed	cterm=NONE
+    hi Search		ctermfg=NONE	ctermbg=88	cterm=NONE
     hi Visual		ctermfg=16	ctermbg=153	cterm=NONE
     hi Cursor		ctermfg=16	ctermbg=46	cterm=NONE
     " NOTE THIS IS IN THE COOL SECTION
@@ -531,7 +527,7 @@ elseif &background=='dark'
     hi DiffDelete	ctermfg=69	ctermbg=234	cterm=NONE
     hi DiffText		ctermfg=16	ctermbg=150	cterm=NONE
     hi SignColumn	ctermfg=254	ctermbg=28	cterm=NONE
-    hi IncSearch	ctermfg=White	ctermbg=DarkRed	cterm=NONE
+    hi IncSearch	ctermfg=16	ctermbg=252	cterm=NONE
     hi StatusLineNC	ctermfg=16	ctermbg=250	cterm=NONE
     hi VertSplit	ctermfg=16	ctermbg=250	cterm=NONE
     hi Underlined	ctermfg=111	ctermbg=NONE	cterm=underline 

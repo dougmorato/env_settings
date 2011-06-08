@@ -35,4 +35,3 @@ hi DiffText                       guifg=White      guibg=DarkRed      gui=NONE
 hi DiffChange                     guifg=Black      guibg=LightYellow
 
 " vim: ts=2 sw=2
-

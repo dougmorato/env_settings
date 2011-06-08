@@ -23,4 +23,3 @@ highlight String     term=none ctermfg=red     cterm=none guifg=red     gui=none
 highlight Number     term=none ctermfg=red     cterm=none guifg=red     gui=none
 
 " vim:ts=2:sw=2:et
-

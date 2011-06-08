@@ -74,4 +74,3 @@ hi Ignore	guifg=bg ctermfg=bg
 
 hi Tooltip	guibg=red
 
-

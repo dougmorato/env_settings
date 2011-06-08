@@ -80,4 +80,3 @@ hi link SpecialComment	Special
 hi link Debug			Special
 
 " vim: sw=2
-
