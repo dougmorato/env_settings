@@ -81,6 +81,8 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
     run('ln -s %ssnipmate-snippets %s/vim/snippets' %
                             (vim_bundle_dir, env_settings_dir))
     #install the colorschemes
+    if not exists("%s/vim/colors" % env_settings_dir):
+        run("mkdir ~/.env_settings/vim/colors")
     with cd("%s/vim/bundle/vim-colorschemes" % env_settings_dir):
         run("cp -fa ./* ~/.env_settings/vim/colors")
 
