@@ -52,7 +52,8 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         "git://github.com/tomtom/tlib_vim.git",
         "git://github.com/MarcWeber/vim-addon-mw-utils.git",
         "git://github.com/spf13/snipmate.vim.git",
-        "git://github.com/spf13/snipmate-snippets.git"
+        "git://github.com/spf13/snipmate-snippets.git",
+        "git://github.com/flazz/vim-colorschemes.git",
         ]
 
     vim_bundle_dir = env_settings_dir + "/vim/bundle/"
@@ -79,6 +80,9 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                             (env_settings_dir, user_home_dir))
     run('ln -s %ssnipmate-snippets %s/vim/snippets' %
                             (vim_bundle_dir, env_settings_dir))
+    #install the colorschemes
+    with cd("%s/vim/bundle/vim-colorschemes" % env_settings_dir):
+        run("cp -fa ./* ~/.env_settings/vim/colors")
 
     #install Command-T with rake extension because we need to
     command_t_dir = vim_bundle_dir + "Command-T/"

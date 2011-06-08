@@ -16,6 +16,20 @@ setlocal commentstring=#%s
 
 setlocal omnifunc=pythoncomplete#Complete
 
+setlocal tabstop=4
+setlocal softtabstop=4
+setlocal shiftwidth=4
+setlocal textwidth=80
+setlocal smarttab
+setlocal expandtab
+
+if exists('+colorcolumn')
+      set colorcolumn=80
+  else
+        au BufWinEnter * let w:m2=matchadd('ErrorMsg', '\%>80v.\+', -1)
+    endif
+
+
 set wildignore+=*.pyc
 
 nnoremap <silent> <buffer> ]] :call <SID>Python_jump('/^\(class\\|def\)')<cr>
