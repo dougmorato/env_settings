@@ -1,5 +1,7 @@
 # Craft.IO Mac/Linux Environment Settings
 
+visit http://www.craft.io for more details about us.
+
 You should give it a try.
 
 ## Pre-requisites
