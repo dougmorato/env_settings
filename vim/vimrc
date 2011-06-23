@@ -175,7 +175,6 @@ else
   set t_Co=256
   set background=dark
   colorscheme vividchalk 
-  set transparency=10
   set nu
 endif
 
