@@ -120,7 +120,7 @@ def customize():
     target_os = prompt("What is the OS you are deploying to: mac or linux: ")
     if target_os in ("LINUX", "linux"):
         run("aptitude update")
-        sudo("aptitude install -y rake ruby-dev")
+        sudo("aptitude install -y rake ruby-dev vim-nox")
         run("aptitude install -y python-pip python-dev build-essential")
         run("aptitude install -y git-core mercurial exuberant-ctags")
         run("pip install ipython")
