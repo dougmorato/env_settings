@@ -143,6 +143,8 @@ def customize():
     #start to install customizations
     _install_vim_customizations(env_settings_dir, user_home_dir)
     _install_zsh_customizations(env_settings_dir, user_home_dir)
+    _install_mercurial_customizations(env_settings_dir)
+
 def update():
     pass
 
