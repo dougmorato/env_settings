@@ -119,11 +119,11 @@ def _install_vcprompt():
 def customize():
     target_os = prompt("What is the OS you are deploying to: mac or linux: ")
     if target_os in ("LINUX", "linux"):
-        run("aptitude update")
+        sudo("aptitude update")
         sudo("aptitude install -y rake ruby-dev vim-nox")
-        run("aptitude install -y python-pip python-dev build-essential")
-        run("aptitude install -y git-core mercurial exuberant-ctags")
-        run("pip install ipython")
+        sudo("aptitude install -y python-pip python-dev build-essential")
+        sudo("aptitude install -y git-core mercurial exuberant-ctags")
+        sudo("pip install ipython")
 
     else:
         sudo("brew install ctags")
