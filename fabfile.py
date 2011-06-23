@@ -75,7 +75,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         run("git submodule add git://g:ithub.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
         with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
-            run("python setup.py install")
+            sudo("python setup.py install")
         run('ln -s %s/vim/vimrc_redirector %s/.vimrc' %
                             (env_settings_dir, user_home_dir))
     run('ln -s %ssnipmate-snippets %s/vim/snippets' %
@@ -89,7 +89,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
     #install Command-T with rake extension because we need to
     command_t_dir = vim_bundle_dir + "Command-T/"
     with cd(command_t_dir):
-        run('rake make')
+        sudo('rake make')
 
 def _install_zsh_customizations(env_settings_dir, user_home_dir):
     '''Install "oh my zsh"'''
