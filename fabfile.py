@@ -96,8 +96,8 @@ def _install_zsh_customizations(env_settings_dir, user_home_dir):
     with cd(env_settings_dir):
         run("git submodule add git://github.com/dfamorato/oh-my-zsh.git"
                 " ./zsh/oh-my-zsh")
-        run("ln -s ./zsh/oh-my-zsh/templates/dfamorato-zshrc  %s/.zshrc" %
-                user_home_dir)
+        run("ln -s %s/zsh/oh-my-zsh/templates/dfamorato-zshrc  %s/.zshrc" %
+                (env_settings_dir,user_home_dir))
         run('export PATH=$PATH >> ~/.zshrc')
         sudo("chsh -s /bin/zsh")
 
@@ -110,7 +110,7 @@ def _install_git_customizations():
 
 def _install_mercurial_customizations(env_settings_dir):
     ''' Install mercurial customizations and extensions'''
-    with cd(env_settings_dir +"mercurial" ):
+    with cd(env_settings_dir +"/mercurial" ):
         run("hg clone ssh://hg@bitbucket.org/sjl/hg-prompt")
         run("ln -s hgrc ~/.hgrc")
 
