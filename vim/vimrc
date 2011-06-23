@@ -168,13 +168,13 @@ if has("gui_running")
   set guioptions-=T
   set t_Co=256
   set background=dark
-  colorscheme colorful256
+  colorscheme vividchalk
   set transparency=10
   set nu
 else
   set t_Co=256
   set background=dark
-  colorscheme colorful256  
+  colorscheme vividchalk 
   set transparency=10
   set nu
 endif
