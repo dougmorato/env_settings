@@ -1,9 +1,0 @@
-README
-setup.py
-hgreview/__init__.py
-hgreview/rietveld.py
-hgreview.egg-info/PKG-INFO
-hgreview.egg-info/SOURCES.txt
-hgreview.egg-info/dependency_links.txt
-hgreview.egg-info/requires.txt
-hgreview.egg-info/top_level.txt

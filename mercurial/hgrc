@@ -1,9 +1,7 @@
 [ui]
-username = Douglas Morato <dm@craft.io>
+username=Douglas Morato <dm@craft.io>
 ssh = ssh -C
-
-[defaults]
-email = --diffstat --git
+ignore=~/.hgignore_global
 
 [extensions]
 alias=
@@ -12,15 +10,11 @@ extdiff=
 graphlog=
 patchbomb=
 record=
-#MacOSXKeychain=/Library/Python/2.5/site-packages/hgext/hgkeychain.py
-hg-prompt=/Users/dfamorato/dfamorato_env/mercurial_extensions/hg-prompt/prompt.py
+hg-prompt=~/.env_settings/mercurial/hg-prompt/prompt.py
 
 [alias]
 blame=annotate -u -n
 rec=record
-
-[diff]
-git=True
 
 [email]
 method = smtp
@@ -32,6 +26,3 @@ host = smtp.postmarkapp.com
 username = 65460463-7a78-45f0-96d4-7663b830321a
 password = 65460463-7a78-45f0-96d4-7663b830321a
 
-[extdiff]
-cmd.sbsdiff  = diff
-opts.sbsdiff = -N -b --side-by-side --width=90
