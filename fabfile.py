@@ -72,7 +72,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                 repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
         #FUCKING HACK TO MAKE FUCKING PYFLAKES WORK
-        run("git submodule add git://github.com/kevinw/pyflakes.git"
+        run("git submodule add git://g:ithub.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
         with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
             run("python setup.py install")
@@ -122,7 +122,7 @@ def customize():
         sudo("aptitude update")
         sudo("aptitude install -y rake ruby-dev vim-nox")
         sudo("aptitude install -y python-pip python-dev build-essential")
-        sudo("aptitude install -y git-core mercurial exuberant-ctags")
+        sudo("aptitude install -y zsh git-core mercurial exuberant-ctags")
         sudo("pip install ipython")
 
     else:
