@@ -94,7 +94,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
 def _install_zsh_customizations(env_settings_dir, user_home_dir):
     '''Install "oh my zsh"'''
     with cd(env_settings_dir):
-        run("git submodule add git@github.com:dfamorato/oh-my-zsh.git"
+        run("git submodule add git://github.com/dfamorato/oh-my-zsh.git"
                 " ./zsh/oh-my-zsh")
         run("cp -f ./zsh/oh-my-zsh/templates/dfamorato-zshrc  %s/.zshrc" %
                 user_home_dir)
