@@ -65,7 +65,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
             if 'git' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.git')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
-                run('git submodule -f add %s %s' %
+                run('git submodule add -f %s %s' %
                             (repository, repository_bundle_dir))
             elif 'hg' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.hg')
