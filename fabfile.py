@@ -72,7 +72,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                 repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
         #FUCKING HACK TO MAKE FUCKING PYFLAKES WORK
-        run("git submodule add git://github.com/kevinw/pyflakes.git"
+        run("git submodule add -f git://github.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
         with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
             run("python setup.py install")
