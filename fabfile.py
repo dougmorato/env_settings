@@ -99,7 +99,7 @@ def _install_zsh_customizations(env_settings_dir, user_home_dir):
         run("cp -f ./zsh/oh-my-zsh/templates/dfamorato-zshrc  %s/.zshrc" %
                 user_home_dir)
         run('export PATH=$PATH >> ~/.zshrc')
-        run("chsh -s /bin/zsh")
+        sudo("chsh -s /bin/zsh")
 
 def _install_bash_customizations():
     pass
