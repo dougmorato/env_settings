@@ -92,8 +92,10 @@
 set history=1000
 
 " Enable the pathogen
-call pathogen#helptags()
 call pathogen#runtime_append_all_bundles()
+call pathogen#helptags()
+
+
 
 " enable filetype plugin after pathogen plugin 
 filetype plugin on
