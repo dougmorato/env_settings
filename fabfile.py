@@ -100,9 +100,10 @@ def _install_zsh_customizations(env_settings_dir, user_home_dir):
         run('export PATH=$PATH >> ~/.zshrc')
         sudo("chsh -s /bin/zsh")
 
-
 def _install_virtualenv_customizations():
-    pass
+    '''Install virtualenv and virtualenv wrappers'''
+    sudo('pip install virtualenv')
+    sudo('pip install virtualenvwrapper')
 
 def _install_git_customizations():
     pass
@@ -143,6 +144,7 @@ def customize():
     _install_vim_customizations(env_settings_dir, user_home_dir)
     _install_zsh_customizations(env_settings_dir, user_home_dir)
     _install_mercurial_customizations(env_settings_dir)
+    _install_virtualenv_customizations()
 
 def update():
     pass
