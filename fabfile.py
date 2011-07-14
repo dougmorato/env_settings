@@ -48,7 +48,6 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         "git://github.com/Raimondi/delimitMate.git",
         "git://github.com/vim-scripts/matchit.zip.git",
         "git://github.com/tomtom/checksyntax_vim.git",
-        "git://github.com/spf13/vim-easytags.git",
         "git://github.com/tomtom/tlib_vim.git",
         "git://github.com/MarcWeber/vim-addon-mw-utils.git",
         "git://github.com/spf13/snipmate.vim.git",

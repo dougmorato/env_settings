@@ -95,8 +95,6 @@ set history=1000
 call pathogen#runtime_append_all_bundles()
 call pathogen#helptags()
 
-
-
 " enable filetype plugin after pathogen plugin 
 filetype plugin on
 filetype indent on
@@ -112,7 +110,6 @@ let g:mapleader = ";"
 " Fast saving and quiting
 nmap <leader>w :w!<cr>
 nmap <leader>q :q!<cr>
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -170,13 +167,13 @@ if has("gui_running")
   set guioptions-=T
   set t_Co=256
   set background=dark
-  colorscheme vividchalk
+  colorscheme devbox-dark-256
   set transparency=10
   set nu
 else
   set t_Co=256
   set background=dark
-  colorscheme vividchalk 
+  colorscheme devbox-dark-256 
   set nu
 endif
 
@@ -198,7 +195,6 @@ set noswapfile
 
 "Persistent undo
 set undodir=~/.env_settings/vim/undodir
-set undofile
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -280,16 +276,8 @@ cno $q <C-\>eDeleteTillSlash()<cr>
 cnoremap <C-A>		<Home>
 cnoremap <C-E>		<End>
 cnoremap <C-K>		<C-U>
-
 cnoremap <C-P> <Up>
 cnoremap <C-N> <Down>
-
-" Useful on some European keyboards
-map ½ $
-imap ½ $
-vmap ½ $
-cmap ½ $
-
 
 func! Cwd()
   let cwd = getcwd()
@@ -317,20 +305,17 @@ func! CurrentFileDir(cmd)
   return a:cmd . " " . expand("%:p:h") . "/"
 endfunc
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Code folding using :za
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set foldmethod=indent
 set foldlevel=99
 
-
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "We use ! at the end of it so it doesn't open the first result automatically.
 " => Search using Ack. 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 nmap <leader>a <Esc>:Ack!
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Moving around, tabs and buffers
@@ -413,7 +398,7 @@ function! GitBranch()
 endfunction
 
 function! CurDir()
-    return substitute(getcwd(), '/Users/amir/', "~/", "g")
+    return substitute(getcwd(), '/Users/dfamorato/', "~/", "g")
 endfunction
 
 function! HasPaste()
@@ -517,19 +502,6 @@ let g:pep8_map='<leader>8'
 let g:SuperTabDefaultCompletionType = "context"
 "menu and pydoc preview
 set completeopt=menu,menuone,longest,preview
-
-
-"""""""""""""""""""""""""""""""""""""""""""""
-" => Py.Test plugin
-"""""""""""""""""""""""""""""""""""""""""""""
-" Execute the tests
-nmap <silent><Leader>tf <Esc>:Pytest file<CR>
-nmap <silent><Leader>tc <Esc>:Pytest class<CR>
-nmap <silent><Leader>tm <Esc>:Pytest method<CR>
-" cycle through test errors
-nmap <silent><Leader>tn <Esc>:Pytest next<CR>
-nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
-nmap <silent><Leader>te <Esc>:Pytest error<CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Vim doesn't realize that you are in a virtualenv
