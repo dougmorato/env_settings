@@ -64,7 +64,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
             if 'git' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.git')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
-                run('git submodule add -f %s %s' %
+                run('git submodule add %s %s' %
                             (repository, repository_bundle_dir))
             elif 'hg' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.hg')
@@ -72,25 +72,32 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
 
         #FUCKING HACK TO MAKE FUCKING PYFLAKES WORK
-        run("git submodule add -f git://github.com/kevinw/pyflakes.git"
+        run("git submodule add git://github.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
         with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
             run("python setup.py install")
 
         # check and delete if vimrc exists
-        if exists("~/.vimrc"):
-            run("rm -f ~/.vimrc")
+            if exists("%s/.vimrc" % user_home_dir):
+                run("rm -f %s/.vimrc" % user_home_dir)
         # Let's lake a symbolic link of the vim_redirector
         run('ln -s %s/vim/vimrc_redirector %s/.vimrc' %
                             (env_settings_dir, user_home_dir))
-    # Hack to make snimate work
+    # Hack to make snipmate work
     run('ln -s %ssnipmate-snippets %s/vim/snippets' %
                             (vim_bundle_dir, env_settings_dir))
     #install the vim colorschemes
     if not exists("%s/vim/colors" % env_settings_dir):
         run("mkdir ~/.env_settings/vim/colors")
     with cd("%s/vim/bundle/vim-colorschemes" % env_settings_dir):
-        run("cp -fa ./* ~/.env_settings/vim/colors")
+        run("cp -fa ./* %s/.env_settings/vim/colors" % user_home_dir)
+
+    #install dfamorato vim colorscheme
+    with cd("/tmp"):
+        run("git clone git://gist.github.com/1093923.git dfamorato-vim")
+        run("cp -f ./dfamorato-vim/dfamorato.vim %s/.env_settings/vim/colors" %
+        user_home_dir)
+        run("rm -rf /tmp/dfamorato-vim")
 
     #install Command-T with rake extension because we need to
     command_t_dir = vim_bundle_dir + "Command-T/"
@@ -100,15 +107,15 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
 def _install_zsh_customizations(env_settings_dir, user_home_dir):
     '''Install "oh my zsh"'''
     with cd(env_settings_dir):
-        run("git submodule add -f git://github.com/dfamorato/oh-my-zsh.git"
+        run("git submodule add git://github.com/dfamorato/oh-my-zsh.git"
                 " ./zsh/oh-my-zsh")
 
         #check and delete if zshrc exists
-        if exists("~/.zshrc"):
-            run("rm -f ./zsh*")
+        if exists("%s/.zshrc" % user_home_dir):
+            run("rm -f %s/.zsh*" % user_home_dir)
         run("ln -s %s/zsh/oh-my-zsh/templates/dfamorato-zshrc  %s/.zshrc" %
                 (env_settings_dir,user_home_dir))
-        run('export PATH=$PATH >> ~/.zshrc')
+        run('export PATH=$PATH >> %s/.zshrc' % user_home_dir)
         sudo("chsh -s /bin/zsh")
 
 def _install_virtualenv_customizations():
@@ -116,23 +123,28 @@ def _install_virtualenv_customizations():
     sudo('pip install virtualenv')
     sudo('pip install virtualenvwrapper')
 
-def _install_git_customizations(env_settings_dir):
+def _install_git_customizations(env_settings_dir, user_home_dir):
     """Links the gitconfig and gitignore file"""
     #check and delete if git config files exist
-    if exists("~/.gitconfig"):
-        run("rm -f ~/.gitconfig ")
-    if exists("~/.gitignore_global"):
-        run("rm -f ~/.gitignore_global")
+    if exists("%s/.gitconfig" % user_home_dir):
+        run("rm -f %s/.gitconfig "% user_home_dir)
+    if exists("%s/.gitignore_global" % user_home_dir):
+        run("rm -f %s/.gitignore_global" % user_home_dir)
 
     #Link git config files from repo
-    run("ln -s %s/git/gitconfig ~/.gitconfig" % env_settings_dir)
-    run("ln -s %s/git/gitignore_global ~/.gitignore_global" % env_settings_dir)
+    run("ln -s %s/git/gitconfig %s/.gitconfig" % (env_settings_dir,
+        user_home_dir))
+    run("ln -s %s/git/gitignore_global %s/.gitignore_global" %
+            (env_settings_dir, user_home_dir))
 
-def _install_mercurial_customizations(env_settings_dir):
+def _install_mercurial_customizations(env_settings_dir, user_home_dir):
     ''' Install mercurial customizations and extensions'''
     with cd(env_settings_dir +"/mercurial" ):
-        run("hg clone ssh://hg@bitbucket.org/sjl/hg-prompt")
-        run("ln -s ./hgrc ~/.hgrc")
+        run("hg clone https://dfamorato@bitbucket.org/sjl/hg-prompt")
+        if exists ("%s/.hgrc" % user_home_dir):
+            run("rm -f %s/.hgrc" % user_home_dir)
+        run("ln -s %s/mercurial/hgrc %s/.hgrc" % (env_settings_dir,
+            user_home_dir))
 
 def customize():
     target_os = prompt("What is the OS you are deploying to: mac or linux: ")
@@ -154,6 +166,9 @@ def customize():
     if not exists(user_home_dir + "/Development/Projects"):
         run("mkdir ~/Development/Projects")
 
+    #delete .env_settings dir if exists
+    if exists("%s/.env_settings" % user_home_dir):
+        run("rm -rf %s/.env_settings" % user_home_dir)
     #TODO: Prompt user for his fork of the env_settings project
     #Clone base settings from github
     with cd(user_home_dir):
@@ -167,8 +182,8 @@ def customize():
     #start to install customizations
     _install_vim_customizations(env_settings_dir, user_home_dir)
     _install_zsh_customizations(env_settings_dir, user_home_dir)
-    _install_git_customizations(env_settings_dir)
-    _install_mercurial_customizations(env_settings_dir)
+    _install_git_customizations(env_settings_dir, user_home_dir)
+    _install_mercurial_customizations(env_settings_dir, user_home_dir)
     _install_virtualenv_customizations()
 
 def update():
