@@ -64,17 +64,17 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
             if 'git' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.git')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
-                run('git submodule add %s %s' %
+                run('git submodule add -f %s %s' %
                             (repository, repository_bundle_dir))
             elif 'hg' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.hg')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
         #FUCKING HACK TO MAKE FUCKING PYFLAKES WORK
-        run("git submodule add git://github.com/kevinw/pyflakes.git"
+        run("git submodule add -f git://github.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
         with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
-            sudo("python setup.py install")
+            run("python setup.py install")
         run('ln -s %s/vim/vimrc_redirector %s/.vimrc' %
                             (env_settings_dir, user_home_dir))
     run('ln -s %ssnipmate-snippets %s/vim/snippets' %
@@ -93,7 +93,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
 def _install_zsh_customizations(env_settings_dir, user_home_dir):
     '''Install "oh my zsh"'''
     with cd(env_settings_dir):
-        run("git submodule add git://github.com/dfamorato/oh-my-zsh.git"
+        run("git submodule add -f git://github.com/dfamorato/oh-my-zsh.git"
                 " ./zsh/oh-my-zsh")
         run("ln -s %s/zsh/oh-my-zsh/templates/dfamorato-zshrc  %s/.zshrc" %
                 (env_settings_dir,user_home_dir))
@@ -112,7 +112,7 @@ def _install_mercurial_customizations(env_settings_dir):
     ''' Install mercurial customizations and extensions'''
     with cd(env_settings_dir +"/mercurial" ):
         run("hg clone ssh://hg@bitbucket.org/sjl/hg-prompt")
-        run("ln -s hgrc ~/.hgrc")
+        run("ln -s ./hgrc ~/.hgrc")
 
 def customize():
     target_os = prompt("What is the OS you are deploying to: mac or linux: ")
@@ -124,7 +124,6 @@ def customize():
         sudo("pip install ipython")
 
     else:
-        sudo("brew install ctags")
         sudo("pip install ipython")
 
     #clone base settings from github
