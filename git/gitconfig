@@ -2,15 +2,9 @@
 	name = Douglas Morato
 	email = dm@craft.io
 [core]
-	editor = mate -w
-	excludesfile = /Users/dfamorato/.gitignore_global
+	editor = vim
+	excludesfile = ~/.gitignore_global
 [color]
 	diff = yes
 	status = yes
 	branch = yes
-[difftool "sourcetree"]
-	cmd = /Applications/Kaleidoscope.app/Contents/MacOS/ksdiff -w \"$LOCAL\" \"$REMOTE\"
-	path = 
-[mergetool "sourcetree"]
-	cmd = /Applications/SourceTree.app/Contents/Resources/opendiff-w.sh \"$LOCAL\" \"$REMOTE\" -ancestor \"$BASE\" -merge \"$MERGED\"
-	trustExitCode = true

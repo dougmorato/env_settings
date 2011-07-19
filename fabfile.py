@@ -14,7 +14,7 @@ from fabric.contrib.files import exists
 
 def _install_vim_customizations(env_settings_dir, user_home_dir):
     "Setup and install vim customizations."
-    # Add the vim repositories below
+    # Add the vim repositories of the bundles you want to install
     vim_repositories = [
         "git://github.com/alfredodeza/pytest.vim.git",
         "git://github.com/altercation/vim-colors-solarized.git",
@@ -55,9 +55,9 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         "git://github.com/flazz/vim-colorschemes.git",
         ]
 
+    #Bundle installation method
     vim_bundle_dir = env_settings_dir + "/vim/bundle/"
     with cd(env_settings_dir):
-        run("git init .")
         for repository in vim_repositories:
             repository_list = repository.split('/')
             repository_guess = repository_list[4]
@@ -70,16 +70,23 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                 repository_dir = repository_guess.rstrip('.hg')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
+
         #FUCKING HACK TO MAKE FUCKING PYFLAKES WORK
         run("git submodule add -f git://github.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
         with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
             run("python setup.py install")
+
+        # check and delete if vimrc exists
+        if exists("~/.vimrc"):
+            run("rm -f ~/.vimrc")
+        # Let's lake a symbolic link of the vim_redirector
         run('ln -s %s/vim/vimrc_redirector %s/.vimrc' %
                             (env_settings_dir, user_home_dir))
+    # Hack to make snimate work
     run('ln -s %ssnipmate-snippets %s/vim/snippets' %
                             (vim_bundle_dir, env_settings_dir))
-    #install the colorschemes
+    #install the vim colorschemes
     if not exists("%s/vim/colors" % env_settings_dir):
         run("mkdir ~/.env_settings/vim/colors")
     with cd("%s/vim/bundle/vim-colorschemes" % env_settings_dir):
@@ -95,6 +102,10 @@ def _install_zsh_customizations(env_settings_dir, user_home_dir):
     with cd(env_settings_dir):
         run("git submodule add -f git://github.com/dfamorato/oh-my-zsh.git"
                 " ./zsh/oh-my-zsh")
+
+        #check and delete if zshrc exists
+        if exists("~/.zshrc"):
+            run("rm -f ./zsh*")
         run("ln -s %s/zsh/oh-my-zsh/templates/dfamorato-zshrc  %s/.zshrc" %
                 (env_settings_dir,user_home_dir))
         run('export PATH=$PATH >> ~/.zshrc')
@@ -105,8 +116,17 @@ def _install_virtualenv_customizations():
     sudo('pip install virtualenv')
     sudo('pip install virtualenvwrapper')
 
-def _install_git_customizations():
-    pass
+def _install_git_customizations(env_settings_dir):
+    """Links the gitconfig and gitignore file"""
+    #check and delete if git config files exist
+    if exists("~/.gitconfig"):
+        run("rm -f ~/.gitconfig ")
+    if exists("~/.gitignore_global"):
+        run("rm -f ~/.gitignore_global")
+
+    #Link git config files from repo
+    run("ln -s %s/git/gitconfig ~/.gitconfig" % env_settings_dir)
+    run("ln -s %s/git/gitignore_global ~/.gitignore_global" % env_settings_dir)
 
 def _install_mercurial_customizations(env_settings_dir):
     ''' Install mercurial customizations and extensions'''
@@ -117,34 +137,39 @@ def _install_mercurial_customizations(env_settings_dir):
 def customize():
     target_os = prompt("What is the OS you are deploying to: mac or linux: ")
     if target_os in ("LINUX", "linux"):
-        sudo("aptitude update")
-        sudo("aptitude install -y rake ruby-dev vim-nox")
-        sudo("aptitude install -y python-pip python-dev build-essential")
-        sudo("aptitude install -y zsh git-core mercurial exuberant-ctags")
-        sudo("pip install ipython")
-
+        sudo("apt-get update")
+        sudo("apt-get install -y rake ruby-dev vim-nox")
+        sudo("apt-get install -y python-pip python-dev build-essential")
+        sudo("apt-get install -y byobu zsh git-core mercurial")
     else:
-        sudo("pip install ipython")
+        #TODO: what are the requirements to install on a mac ??
+        pass
 
-    #clone base settings from github
-    with cd("/tmp"):
-        run('git clone git://github.com/dfamorato/env_settings.git')
-
-    #Setup basic necessary variables
+    # let's find out what is the users home directory
     user_home_dir = run('echo $HOME')
+
+    #Create the $HOME/Development/Projects directory if non existant
+    if not exists(user_home_dir + "/Development"):
+        run("mkdir ~/Development")
+    if not exists(user_home_dir + "/Development/Projects"):
+        run("mkdir ~/Development/Projects")
+
+    #TODO: Prompt user for his fork of the env_settings project
+    #Clone base settings from github
+    with cd(user_home_dir):
+        run('git clone git://github.com/dfamorato/env_settings.git .env_settings')
     env_settings_dir = user_home_dir + "/.env_settings"
-    if not exists(env_settings_dir):
-            run('mkdir %s'  % env_settings_dir)
-    #move data from cloned git repo to permanent directory
-    run('mv -f /tmp/env_settings/* %s/' % env_settings_dir)
-    run('rm -rf /tmp/env_settings')
+
+    #Add git upstream server for future updates on this project
+    with cd(env_settings_dir):
+        run("git remote add upstream git://github.com/dfamorato/env_settings.git")
 
     #start to install customizations
     _install_vim_customizations(env_settings_dir, user_home_dir)
     _install_zsh_customizations(env_settings_dir, user_home_dir)
+    _install_git_customizations(env_settings_dir)
     _install_mercurial_customizations(env_settings_dir)
     _install_virtualenv_customizations()
 
 def update():
     pass
-
