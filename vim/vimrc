@@ -164,16 +164,16 @@ elseif MySys() == "linux"
 endif
 
 if has("gui_running")
-  set guioptions=TamL
+  set guioptions-=T
   set t_Co=256
   set background=dark
-  colorscheme fruity
+  colorscheme devbox-dark-256
   set transparency=10
   set nu
 else
   set t_Co=256
   set background=dark
-  colorscheme dfamorato 
+  colorscheme devbox-dark-256 
   set nu
 endif
 
@@ -193,8 +193,8 @@ set nobackup
 set nowb
 set noswapfile
 
-" let me switch buffers with unsaved changes
-" set hidden
+"Persistent undo
+set undodir=~/.env_settings/vim/undodir
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -256,9 +256,7 @@ function! VisualSelection(direction) range
         execute "normal /" . l:pattern . "^M"
     endif
 
-    set nu
     let @/ = l:pattern
-        
     let @" = l:saved_reg
 endfunction
 
@@ -411,8 +409,8 @@ function! HasPaste()
 endfunction
 
 " Format the statusline
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ Line:\ %l/%L%{GitBranch()}
-"set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L%{GitBranch()}
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L%{GitBranch()}
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Parenthesis/bracket expanding
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""

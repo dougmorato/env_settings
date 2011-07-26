@@ -3,4 +3,4 @@
 proj_name=$(echo $VIRTUAL_ENV|awk -F'/' '{print $NF}')
 mkdir $HOME/Development/Projects/$proj_name
 add2virtualenv $HOME/Development/Projects/$proj_name
-cd $HOME/Development/Projects/$proj_name
+cd $HOME/Development/Projects/$proj_name')

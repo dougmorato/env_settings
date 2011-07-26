@@ -75,7 +75,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         run("git submodule add git://github.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
         with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
-            run("python setup.py install")
+            sudo("python setup.py install")
 
         # check and delete if vimrc exists
             if exists("%s/.vimrc" % user_home_dir):
@@ -145,6 +145,14 @@ def _install_mercurial_customizations(env_settings_dir, user_home_dir):
             run("rm -f %s/.hgrc" % user_home_dir)
         run("ln -s %s/mercurial/hgrc %s/.hgrc" % (env_settings_dir,
             user_home_dir))
+
+    # Install the hg-git module
+    # Install dulwich requirement for hg-git
+    sudo("pip install dulwich")
+    run("git submodule add git://github.com/schacon/hg-git.git"
+            "%s/mercurial/hg-git" % env_settings_dir)
+    with cd("%s/mercurial/hg-git" % env_settings_dir):
+        sudo("python setup.py install")
 
 def customize():
     target_os = prompt("What is the OS you are deploying to: mac or linux: ")
