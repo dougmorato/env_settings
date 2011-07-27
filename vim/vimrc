@@ -193,9 +193,6 @@ set nobackup
 set nowb
 set noswapfile
 
-"Persistent undo
-set undodir=~/.env_settings/vim/undodir
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
