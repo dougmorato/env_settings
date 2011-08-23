@@ -77,16 +77,16 @@ elseif MySys() == "linux"
 endif
 
 if has("gui_running")
-  set guioptions-=T
+  set guioptions=TamL
   set t_Co=256
   set background=dark
-  colorscheme devbox-dark-256
-  set transparency=10
+  colorscheme dfamorato 
+  set transparency=40
   set nu
 else
   set t_Co=256
   set background=dark
-  colorscheme devbox-dark-256 
+  colorscheme dfamorato 
   set nu
 endif
 
