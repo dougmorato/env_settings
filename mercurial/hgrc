@@ -4,13 +4,13 @@ ssh = ssh -C
 ignore=~/.hgignore_global
 
 [extensions]
-alias=
 convert=
 extdiff=
 graphlog=
 patchbomb=
 record=
 hg-prompt=~/.env_settings/mercurial/hg-prompt/prompt.py
+hggit=~/.env_settings/mercurial/hg-git/hggit
 
 [alias]
 blame=annotate -u -n
