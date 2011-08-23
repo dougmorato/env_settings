@@ -17,11 +17,12 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
     # Add the vim repositories of the bundles you want to install
     vim_repositories = [
         "git://github.com/alfredodeza/pytest.vim.git",
-        "git://github.com/altercation/vim-colors-solarized.git",
+        "git://github.com/docunext/closetag.vim.git",
         "git://github.com/fs111/pydoc.vim.git",
+        "git://github.com/ap/vim-css-color.git",
         "git://github.com/kevinw/pyflakes-vim.git",
         "git://github.com/mileszs/ack.vim.git",
-        "git://github.com/scrooloose/nerdcommenter.git",
+        "git://github.com/majutsushi/tagbar.git",
         "git://github.com/scrooloose/nerdtree.git",
         "git://github.com/sjl/gundo.vim.git",
         "git://github.com/sukima/xmledit",
