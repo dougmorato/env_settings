@@ -8,3 +8,4 @@
 	diff = yes
 	status = yes
 	branch = yes
+    ui = auto
