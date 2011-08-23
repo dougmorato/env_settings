@@ -150,8 +150,9 @@ def _install_mercurial_customizations(env_settings_dir, user_home_dir):
     # Install the hg-git module
     # Install dulwich requirement for hg-git
     sudo("pip install dulwich")
-    run("git submodule add git://github.com/schacon/hg-git.git"
-            "%s/mercurial/hg-git" % env_settings_dir)
+    with cd(env_settings_dir +"/mercurial" ):
+        run("git submodule add git://github.com/schacon/hg-git.git"
+                " %s/mercurial/hg-git" % env_settings_dir)
     with cd("%s/mercurial/hg-git" % env_settings_dir):
         sudo("python setup.py install")
 
