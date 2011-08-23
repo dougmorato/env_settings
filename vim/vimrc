@@ -106,6 +106,9 @@ set nobackup
 set nowb
 set noswapfile
 
+" let me switch buffers with unsaved changes
+" set hidden
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -113,6 +116,7 @@ set expandtab
 set shiftwidth=4
 set tabstop=4
 set smarttab
+set softtabstop=4
 
 set lbr
 set tw=500
@@ -166,7 +170,9 @@ function! VisualSelection(direction) range
         execute "normal /" . l:pattern . "^M"
     endif
 
+    set nu
     let @/ = l:pattern
+        
     let @" = l:saved_reg
 endfunction
 
@@ -292,21 +298,6 @@ endtry
 " Always hide the statusline
 set laststatus=2
 
-"Git branch
-function! GitBranch()
-    try
-        let branch = system("git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* //'")
-    catch
-        return ''
-    endtry
-
-    if branch != ''
-        return '   Git Branch: ' . substitute(branch, '\n', '', 'g')
-    en
-
-    return ''
-endfunction
-
 function! CurDir()
     return substitute(getcwd(), '/Users/dfamorato/', "~/", "g")
 endfunction
@@ -319,8 +310,7 @@ function! HasPaste()
 endfunction
 
 " Format the statusline
-set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L%{GitBranch()}
-
+set statusline=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ Line:\ %l/%L\ %{fugitive#statusline()}
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Parenthesis/bracket expanding
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -331,13 +321,11 @@ vnoremap $$ <esc>`>a"<esc>`<i"<esc>
 vnoremap $q <esc>`>a'<esc>`<i'<esc>
 vnoremap $e <esc>`>a"<esc>`<i"<esc>
 
-" Map auto complete of (, ", ', [
+" Map auto complete of (,  [
 inoremap $1 ()<esc>i
 inoremap $2 []<esc>i
 inoremap $3 {}<esc>i
 inoremap $4 {<esc>o}<esc>O
-inoremap $q ''<esc>i
-inoremap $e ""<esc>i
 inoremap $t <><esc>i
 
 
@@ -376,15 +364,6 @@ autocmd BufWrite *.py :call DeleteTrailingWS()
 
 set guitablabel=%t
 
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Cope
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Do :help cope if you are unsure what cope is. It's super useful!
-map <leader>cc :botright cope<cr>
-map <leader>n :cn<cr>
-map <leader>p :cp<cr>
-
 """"""""""""""""""""""""""""""
 " => Gundo plugin
 """"""""""""""""""""""""""""""
@@ -398,8 +377,7 @@ map <leader>g :GundoToggle<CR>
 " => NERDTree plugin, open with CTRL + O
 """""""""""""""""""""""""""""""""""""""""
 nmap <silent> <c-o> :NERDTreeToggle<CR>
-let g:NERDTreeWinSize = 60
-
+let g:NERDTreeWinSize = 32
 
 """"""""""""""""""""""""""""""
 " => Check PEP8 on files
@@ -450,7 +428,6 @@ map <leader>td <Plug>TaskList
 """""""""""""""""""""""""""""""""""""""""""""""
 let g:pyflakes_use_quickfix = 0
 
-
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -463,21 +440,21 @@ map <leader>sp [s
 map <leader>sa zg
 map <leader>s? z=
 
-
-
 """"""""""""""""""""""""""""""
 " => Command-T
 """"""""""""""""""""""""""""""
 let g:CommandTMaxHeight = 15
 set wildignore+=*.o,*.obj,.git,*.pyc
-noremap <leader>y :CommandTFlush<cr>
-"noremap! <leader>j :PeepOpen<cr>
-
+map <silent> <c-t> :CommandTFlush<CR> 
+if has("gui_macvim")
+    macmenu &File.New\ Tab key=<nop>
+    map <D-t> :CommandT<CR>
+endif
 
 """"""""""""""""""""""""""""""
 " => Vim grep
 """"""""""""""""""""""""""""""
-let Grep_Skip_Dirs = 'RCS CVS SCCS .svn generated'
+let Grep_Skip_Dirs = 'RCS CVS SCCS .git .hg build .svn generated'
 set grepprg=/bin/grep\ -nH
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -492,7 +469,7 @@ map <leader>pp :setlocal paste!<cr>
 map <leader>bb :cd ..<cr>
 
 if MySys() == "mac"
-    if has("gui_running")
+    if has("gui_macvim")
       set fuoptions=maxvert,maxhorz
       au GUIEnter * set fullscreen
     endif
