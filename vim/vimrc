@@ -79,9 +79,7 @@ endif
 if has("gui_running")
   set guioptions=TamL
   set t_Co=256
-  set background=dark
   colorscheme dfamorato 
-  set transparency=40
   set nu
 else
   set t_Co=256
