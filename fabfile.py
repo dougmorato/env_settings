@@ -42,6 +42,8 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         "git://github.com/vim-ruby/vim-ruby.git",
         "git://github.com/vim-scripts/applescript.vim",
         "git://github.com/nvie/vim-pep8.git",
+        "git://github.com/nvie/vim-pyunit.git",
+        "git://github.com/nvie/vim-pyflakes.git",
         "git://github.com/vim-scripts/TaskList.vim.git",
         "git://github.com/wincent/Command-T.git",
         "git://github.com/spf13/PIV.git",
@@ -166,6 +168,13 @@ def customize():
     else:
         #TODO: what are the requirements to install on a mac ??
         pass
+
+    # install python goodies
+    sudo("pip install pep8")
+    sudo("pip install pyflakes")
+    sudo("pip install nose")
+    sudo("pip install nose_machineout")
+    sudo("pip install vim_bridge")
 
     # let's find out what is the users home directory
     user_home_dir = run('echo $HOME')
