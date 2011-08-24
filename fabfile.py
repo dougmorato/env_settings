@@ -173,7 +173,7 @@ def customize():
     sudo("pip install pep8")
     sudo("pip install pyflakes")
     sudo("pip install nose")
-    sudo("pip -e git://git://github.com/nvie/nose-machineout.git")
+    sudo("pip install git+http://github.com/nvie/nose-machineout.git")
     sudo("pip install vim_bridge")
 
     # let's find out what is the users home directory
