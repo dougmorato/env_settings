@@ -178,7 +178,7 @@ def customize():
 
     #delete .env_settings dir and ofther .diles if they exist
     if exists("%s/.env_settings" % user_home_dir):
-        run("rm -rf %s/.env_settings" % user_home_dir)
+        sudo("rm -rf %s/.env_settings" % user_home_dir)
         with cd(user_home_dir):
             run("rm -rf .zsh* .zcom* .git* .hg* .vim*")
     #TODO: Prompt user for his fork of the env_settings project
