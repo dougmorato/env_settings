@@ -52,8 +52,6 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         "git://github.com/tomtom/tlib_vim.git",
         "git://github.com/MarcWeber/vim-addon-mw-utils.git",
         "git://github.com/spf13/snipmate.vim.git",
-        "git://github.com/spf13/snipmate-snippets.git",
-        "git://github.com/flazz/vim-colorschemes.git",
         ]
 
     #Bundle installation method
@@ -72,7 +70,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                 repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
 
-        #FUCKING HACK TO MAKE FUCKING PYFLAKES WORK
+        #INSTALL PYFLAKES
         run("git submodule add git://github.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
         with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
@@ -81,24 +79,18 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         # check and delete if vimrc exists
             if exists("%s/.vimrc" % user_home_dir):
                 run("rm -f %s/.vimrc" % user_home_dir)
+
         # Let's lake a symbolic link of the vim_redirector
         run('ln -s %s/vim/vimrc_redirector %s/.vimrc' %
                             (env_settings_dir, user_home_dir))
-    # Hack to make snipmate work
-    run('ln -s %ssnipmate-snippets %s/vim/snippets' %
-                            (vim_bundle_dir, env_settings_dir))
-    #install the vim colorschemes
-    if not exists("%s/vim/colors" % env_settings_dir):
-        run("mkdir ~/.env_settings/vim/colors")
-    with cd("%s/vim/bundle/vim-colorschemes" % env_settings_dir):
-        run("cp -fa ./* %s/.env_settings/vim/colors" % user_home_dir)
 
-    #install dfamorato vim colorscheme
-    with cd("/tmp"):
-        run("git clone git://gist.github.com/1093923.git dfamorato-vim")
-        run("cp -f ./dfamorato-vim/dfamorato.vim %s/.env_settings/vim/colors" %
-        user_home_dir)
-        run("rm -rf /tmp/dfamorato-vim")
+        # Hack to make snipmate work
+        run("git submodule add git://github.com/spf13/snipmate-snippets.git"
+            " %s/vim/snippets" % env_settings_dir)
+
+        #install the vim colorschemes
+        run("git submodule add git://github.com/dfamorato/vim-colorschemes.git"
+                " %s/vim/bundle/colorscheme" % env_settings_dir)
 
     #install Command-T with rake extension because we need to
     command_t_dir = vim_bundle_dir + "Command-T/"
@@ -140,17 +132,25 @@ def _install_git_customizations(env_settings_dir, user_home_dir):
 
 def _install_mercurial_customizations(env_settings_dir, user_home_dir):
     ''' Install mercurial customizations and extensions'''
-    with cd(env_settings_dir +"/mercurial" ):
-        run("hg clone https://dfamorato@bitbucket.org/sjl/hg-prompt")
-        if exists ("%s/.hgrc" % user_home_dir):
-            run("rm -f %s/.hgrc" % user_home_dir)
-        run("ln -s %s/mercurial/hgrc %s/.hgrc" % (env_settings_dir,
-            user_home_dir))
+    #Install hg-prompt
+    with cd(env_settings_dir):
+        run("git submodule add git@github.com:dfamorato/hg-prompt.git"
+                " %s/mercurial/hg-prompt" % env_settings_dir)
 
-    # Install the hg-git module
+    #Link .hg* files
+    if exists ("%s/.hgrc" % user_home_dir):
+        run("rm -f %s/.hgrc" % user_home_dir)
+    run("ln -s %s/mercurial/hgrc %s/.hgrc" % (env_settings_dir, user_home_dir))
+    if exists ("%s/.hgignore_global" % user_home_dir):
+        run("rm -f %s/.hgignore_global" % user_home_dir)
+    run("ln -s %s/mercurial/hgignore_global %s/.hgignore_global"
+            % (env_settings_dir, user_home_dir))
+
     # Install dulwich requirement for hg-git
     sudo("pip install dulwich")
-    with cd(env_settings_dir +"/mercurial" ):
+
+    # Install the hg-git module
+    with cd(env_settings_dir):
         run("git submodule add git://github.com/schacon/hg-git.git"
                 " %s/mercurial/hg-git" % env_settings_dir)
     with cd("%s/mercurial/hg-git" % env_settings_dir):
@@ -176,9 +176,11 @@ def customize():
     if not exists(user_home_dir + "/Development/Projects"):
         run("mkdir ~/Development/Projects")
 
-    #delete .env_settings dir if exists
+    #delete .env_settings dir and ofther .diles if they exist
     if exists("%s/.env_settings" % user_home_dir):
         run("rm -rf %s/.env_settings" % user_home_dir)
+        with cd(user_home_dir):
+            run("rm -rf .zsh* .zcom* .git* .hg* .vim*")
     #TODO: Prompt user for his fork of the env_settings project
     #Clone base settings from github
     with cd(user_home_dir):
