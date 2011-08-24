@@ -445,7 +445,7 @@ map <leader>s? z=
 """"""""""""""""""""""""""""""
 let g:CommandTMaxHeight = 15
 set wildignore+=*.o,*.obj,.git,*.pyc
-map <silent> <c-t> :CommandTFlush<CR> 
+map <silent> <c-t> :CommandT<CR> 
 if has("gui_macvim")
     macmenu &File.New\ Tab key=<nop>
     map <D-t> :CommandT<CR>
