@@ -375,7 +375,7 @@ map <leader>g :GundoToggle<CR>
 " => NERDTree plugin, open with CTRL + O
 """""""""""""""""""""""""""""""""""""""""
 nmap <silent> <c-o> :NERDTreeToggle<CR>
-nmap <silent> <F4> :NERDTreeToogle<CR>
+nmap <silent> <F4> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize = 32
 
 """"""""""""""""""""""""""""
@@ -386,7 +386,7 @@ let g:tagbar_sort = 1
 let g:tagbar_usearrows = 1
 let g:tagbar_autoshowtag = 1
 let g:tagbar_autoclose = 1
-nmap <silent> <F3> :TagbarToogle <CR>
+nmap <silent> <F3> :TagbarToggle <CR>
 
 """""""""""""""""""""""""""""
 " => Check PEP8 on files
