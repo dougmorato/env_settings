@@ -134,7 +134,7 @@ def _install_mercurial_customizations(env_settings_dir, user_home_dir):
     ''' Install mercurial customizations and extensions'''
     #Install hg-prompt
     with cd(env_settings_dir):
-        run("git submodule add git@github.com:dfamorato/hg-prompt.git"
+        run("git submodule add git://github.com/dfamorato/hg-prompt.git"
                 " %s/mercurial/hg-prompt" % env_settings_dir)
 
     #Link .hg* files
