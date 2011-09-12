@@ -20,9 +20,8 @@ rec=record
 method = smtp
 from = Douglas Morato <dm@craft.io>
 
-[smtp]
-tls = True
-host = smtp.postmarkapp.com
-username = 65460463-7a78-45f0-96d4-7663b830321a
-password = 65460463-7a78-45f0-96d4-7663b830321a
-
+[merge-tools]
+threesome.executable = vim
+threesome.args = -f $base $local $other $output -c 'ThreesomeInit'
+threesome.premerge = keep
+threesome.priority = 1
