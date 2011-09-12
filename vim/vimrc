@@ -70,10 +70,6 @@ set visualbell
 set t_vb=
 set tm=500
 
-" show hidden characters
-set list
-set listchars=tab:▸\ ,eol:¬, trail:,nbsp:
-
 "some stuff to get the mouse going in term
 set mouse=a
 set ttymouse=xterm2
