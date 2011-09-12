@@ -67,7 +67,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
             if 'git' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.git')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
-                run('git submodule add %s %s' %
+                run('git submodule add -f %s %s' %
                             (repository, repository_bundle_dir))
             elif 'hg' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.hg')
@@ -75,7 +75,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
 
         #INSTALL PYFLAKES
-        run("git submodule add git://github.com/kevinw/pyflakes.git"
+        run("git submodule add -f git://github.com/kevinw/pyflakes.git"
                 " %s/vim/ftplugin/python/pyflakes" % env_settings_dir)
         with cd("%s/vim/ftplugin/python/pyflakes" % env_settings_dir):
             sudo("python setup.py install")
@@ -89,11 +89,11 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                             (env_settings_dir, user_home_dir))
 
         # Hack to make snipmate work
-        run("git submodule add git://github.com/spf13/snipmate-snippets.git"
+        run("git submodule add -f git://github.com/spf13/snipmate-snippets.git"
             " %s/vim/snippets" % env_settings_dir)
 
         #install the vim colorschemes
-        run("git submodule add git://github.com/dfamorato/vim-colorschemes.git"
+        run("git submodule add -f git://github.com/dfamorato/vim-colorschemes.git"
                 " %s/vim/bundle/colorscheme" % env_settings_dir)
 
     #install Command-T with rake extension because we need to
@@ -104,7 +104,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
 def _install_zsh_customizations(env_settings_dir, user_home_dir):
     '''Install "oh my zsh"'''
     with cd(env_settings_dir):
-        run("git submodule add git://github.com/dfamorato/oh-my-zsh.git"
+        run("git submodule add -f git://github.com/dfamorato/oh-my-zsh.git"
                 " ./zsh/oh-my-zsh")
 
         #check and delete if zshrc exists
@@ -138,7 +138,7 @@ def _install_mercurial_customizations(env_settings_dir, user_home_dir):
     ''' Install mercurial customizations and extensions'''
     #Install hg-prompt
     with cd(env_settings_dir):
-        run("git submodule add git://github.com/dfamorato/hg-prompt.git"
+        run("git submodule add -f git://github.com/dfamorato/hg-prompt.git"
                 " %s/mercurial/hg-prompt" % env_settings_dir)
 
     #Link .hg* files
