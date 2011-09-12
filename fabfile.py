@@ -24,7 +24,9 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         "git://github.com/mileszs/ack.vim.git",
         "git://github.com/majutsushi/tagbar.git",
         "git://github.com/scrooloose/nerdtree.git",
+        "git://github.com/scrooloose/syntastic.git",
         "git://github.com/sjl/gundo.vim.git",
+        "git://github.com/sjl/threesome.vim.git",
         "git://github.com/sukima/xmledit",
         "git://github.com/timcharper/textile.vim.git",
         "git://github.com/tomtom/tcomment_vim.git",
@@ -148,18 +150,23 @@ def _install_mercurial_customizations(env_settings_dir, user_home_dir):
     run("ln -s %s/mercurial/hgignore_global %s/.hgignore_global"
             % (env_settings_dir, user_home_dir))
 
-    # Install dulwich requirement for hg-git
-    sudo("pip install dulwich")
+    # Install the dulwich requirement for hg-git
+    with cd(env_settings_dir):
+        run("git submodule add -f git://github.com/jelmer/dulwich.git"
+                " %s/mercurial/dulwich" % env_settings_dir)
+    with cd("%s/mercurial/dulwich" % env_settings_dir):
+        sudo("python setup.py install")
 
     # Install the hg-git module
     with cd(env_settings_dir):
-        run("git submodule add git://github.com/schacon/hg-git.git"
+        run("git submodule add -f git://github.com/schacon/hg-git.git"
                 " %s/mercurial/hg-git" % env_settings_dir)
     with cd("%s/mercurial/hg-git" % env_settings_dir):
         sudo("python setup.py install")
 
 def customize():
-    target_os = prompt("What is the OS you are deploying to: mac or linux: ")
+    target_os = prompt("What is the OS you are deploying to: mac, ubuntu or "
+            "fedora: ")
     if target_os in ("LINUX", "linux"):
         sudo("apt-get update")
         sudo("apt-get install -y rake ruby-dev vim-nox")
