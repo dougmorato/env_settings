@@ -32,7 +32,7 @@ nmap <leader>w :w!<cr>
 nmap <leader>q :q!<cr>
 
 "set spell check when writing 
-autocmd filetype gitcommit,python,rst,markdown setlocal spell spelllang=en_us
+autocmd filetype gitcommit,rst,markdown setlocal spell spelllang=en_us
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
