@@ -24,6 +24,9 @@ set autoread
 let mapleader = ";"
 let g:mapleader = ";"
 
+" For when you forget to sudo.. Really Write the file.
+cmap w!! w !sudo tee % >/dev/null
+
 " Show how far lines are from current one
 set relativenumber
 
@@ -534,7 +537,8 @@ func! DeleteTrailingWS()
   %s/\s\+$//ge
   exe "normal `z"
 endfunc
-autocmd BufWrite *.py *.jinja *.html *.css *.css :call DeleteTrailingWS()
+"autocmd BufWrite *.c,*.py *.jinja *.html *.css *.css :call DeleteTrailingWS()
+autocmd FileType jinja,c,java,php,js,python,xml,ruby autocmd BufWriteufWritePre <buffer> :call DeleteTrailingWS()
 
 set guitablabel=%t
 
