@@ -12,6 +12,9 @@ call pathogen#helptags()
 filetype plugin on
 filetype indent on
 
+" we don't need to be compatible with VI anymore
+set nocompatible
+
 " Set to auto read when a file is changed from the outside
 set autoread
 
@@ -19,6 +22,9 @@ set autoread
 " like <leader>w saves the current file
 let mapleader = ";"
 let g:mapleader = ";"
+
+" Show how far lines are from current one
+set relativenumber
 
 " Fast saving and quiting
 nmap <leader>w :w!<cr>
@@ -31,15 +37,14 @@ nmap <leader>q :q!<cr>
 set so=7
 
 set wildmenu "Turn on WiLd menu
+set wildmode=lisy:longest
 
 set ruler "Always show current position
 
 set cmdheight=2 "The commandbar height
 
-set hid "Change buffer - without saving
-
 " Set backspace config
-set backspace=eol,start,indent
+set backspace=indent,eol,start
 set whichwrap+=<,>,h,l
 
 set ignorecase "Ignore case when searching
@@ -55,13 +60,15 @@ set magic "Set magic on, for regular expressions
 set showmatch "Show matching bracets when text indicator is over them
 set mat=5 "How many tenths of a second to blink
 
-" No sound on errors
-set noerrorbells
-set novisualbell
+" sound on errors
+set errorbells
+set visualbell
 set t_vb=
 set tm=500
 
-
+" show hidden characters
+set list
+set listchars=tab:▸\ ,eol:¬
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Colors and Fonts
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -107,7 +114,7 @@ set nowb
 set noswapfile
 
 " let me switch buffers with unsaved changes
-" set hidden
+set hidden
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
