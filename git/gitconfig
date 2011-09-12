@@ -1,11 +1,16 @@
 [user]
-	name = Douglas Morato
-	email = dm@craft.io
+    name = Douglas Morato
+    email = dm@craft.io
 [core]
-	editor = vim
-	excludesfile = ~/.gitignore_global
+    editor = vim
+    excludesfile = ~/.gitignore_global
 [color]
-	diff = yes
-	status = yes
-	branch = yes
+    diff = yes
+    status = yes
+    branch = yes
     ui = auto
+[merge]
+    tool = threesome
+[mergetool "threesome"]
+    cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
+    trustExitCode = true
