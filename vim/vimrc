@@ -37,6 +37,11 @@ nmap <leader>q :q!<cr>
 "set spell check when writing 
 autocmd filetype gitcommit,rst,markdown setlocal spell spelllang=en_us
 
+"Fix COPY/PASTE on MAC terminal vim and Macvim
+"Use visual selection + yy to 'yank lines' even to the OS and make it pastable
+"Only works with Vim 7.3 and up
+set clipboard=unnamed
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -91,7 +96,7 @@ elseif MySys() == "linux"
 endif
 
 if has("gui_running")
-  set guioptions=TamL
+  set guioptions=amL
   set t_Co=256
   colorscheme dfamorato 
   set nu
