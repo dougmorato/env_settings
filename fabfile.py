@@ -115,10 +115,11 @@ def _install_zsh_customizations(env_settings_dir, user_home_dir):
         run('export PATH=$PATH >> %s/.zshrc' % user_home_dir)
         sudo("chsh -s /bin/zsh")
 
-def _install_virtualenv_customizations():
+def _install_virtualenv_customizations(env_settings_dir):
     '''Install virtualenv and virtualenv wrappers'''
     sudo('pip install virtualenv')
     sudo('pip install virtualenvwrapper')
+    run('cp -fa %s/virtualenvwrapper/* /usr/local/' % env_settings_dir)
 
 def _install_git_customizations(env_settings_dir, user_home_dir):
     """Links the gitconfig and gitignore file"""
@@ -212,7 +213,7 @@ def customize():
     _install_zsh_customizations(env_settings_dir, user_home_dir)
     _install_git_customizations(env_settings_dir, user_home_dir)
     _install_mercurial_customizations(env_settings_dir, user_home_dir)
-    _install_virtualenv_customizations()
+    _install_virtualenv_customizations(env_settings_dir)
 
 def update():
     pass
