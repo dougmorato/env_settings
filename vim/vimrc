@@ -543,7 +543,7 @@ func! DeleteTrailingWS()
   exe "normal `z"
 endfunc
 "autocmd BufWrite *.c,*.py *.jinja *.html *.css *.css :call DeleteTrailingWS()
-autocmd FileType jinja,c,java,php,js,python,xml,ruby autocmd BufWriteufWritePre <buffer> :call DeleteTrailingWS()
+autocmd FileType jinja,c,java,php,js,python,xml,ruby autocmd BufWrite BufWritePre <buffer> :call DeleteTrailingWS()
 
 set guitablabel=%t
 
