@@ -168,7 +168,7 @@ def _install_mercurial_customizations(env_settings_dir, user_home_dir):
 def customize():
     target_os = prompt("What is the OS you are deploying to: mac, ubuntu or "
             "fedora: ")
-    if target_os in ("LINUX", "linux"):
+    if target_os in ("ubuntu", "UBUNTU"):
         sudo("apt-get update")
         sudo("apt-get install -y rake ruby-dev vim-nox")
         sudo("apt-get install -y python-pip python-dev build-essential")
