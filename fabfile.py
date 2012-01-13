@@ -56,6 +56,7 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
         "git://github.com/tomtom/tlib_vim.git",
         "git://github.com/MarcWeber/vim-addon-mw-utils.git",
         "git://github.com/spf13/snipmate.vim.git",
+        "git://github.com/Lokaltog/vim-powerline.git",
         ]
 
     #Bundle installation method
