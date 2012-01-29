@@ -1,4 +1,10 @@
 #!/bin/zsh
-# This hook is run after every virtualenv is activated.
+
+# Global virtualenvwrapper postactivate, lives in $WORKON_HOME/postactivate
+
+# Remove virtual env from start of PS1 as it's in RPROMPT instead
+PS1="$_OLD_VIRTUAL_PS1"
+
 proj_name=$(echo $VIRTUAL_ENV|awk -F'/' '{print $NF}')
 cd ~/Development/Projects/$proj_name
+
