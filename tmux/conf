@@ -91,7 +91,7 @@ set -g message-attr bold
 set-option -g status on
 set-option -g status-interval 2
 set-option -g status-utf8 on
-set-option -g status-justify "centre"
+set-option -g status-justify "left"
 set-option -g status-left-length 60
 set-option -g status-right-length 90
 set-option -g status-left "#(~/.env_settings/tmux/tmux-powerline/status-left.sh)"
@@ -104,8 +104,6 @@ set-option -g status-right "#(~/.env_settings/tmux/tmux-powerline/status-right.s
 #set -g status-right '#[fg=colour238,bg=colour234,nobold]#[fg=colour245,bg=colour238] #h #[fg=colour252]#[fg=colour235,bg=colour252,bold] %H:%M %D '
 #set -g window-status-format "#[fg=white,bg=colour234] #I #W "
 #set -g window-status-current-format "#[fg=colour234,bg=colour39]#[fg=colour25,bg=colour39,noreverse,bold] #I #W #[fg=colour39,bg=colour234,nobold]"
-
-
 
 # Highlight active window
 set-window-option -g window-status-current-bg red
