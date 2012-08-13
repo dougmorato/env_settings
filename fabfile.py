@@ -123,6 +123,22 @@ def _install_virtualenv_customizations(env_settings_dir):
     sudo('pip install virtualenvwrapper')
     run('cp -fa %s/virtualenvwrapper/* /usr/local/' % env_settings_dir)
 
+def _install_tmux_customization(env_settings_dir, user_home_dir):
+    '''Install Tmux customization'''
+    tmux_conf_dir = env_settings_dir + "/tmux/tmux-powerline"
+
+    #check and delete if git config files exist
+    if exists("%s/.tmux.conf" % user_home_dir):
+        run("rm -f %s/.tmux.conf "% user_home_dir)
+
+    #Link git config files from repo
+    run("ln -s %s/tmux/conf %s/.tmux.conf" % (env_settings_dir,
+        user_home_dir))
+
+    # Pull tmux configurations from github repo
+    with cd(env_settings_dir):
+        run("git submodule add -f git://github.com/dfamorato/tmux-powerline.git %s" % tmux_conf_dir)
+
 def _install_git_customizations(env_settings_dir, user_home_dir):
     """Links the gitconfig and gitignore file"""
     #check and delete if git config files exist
@@ -215,6 +231,7 @@ def customize():
     _install_zsh_customizations(env_settings_dir, user_home_dir)
     _install_git_customizations(env_settings_dir, user_home_dir)
     _install_mercurial_customizations(env_settings_dir, user_home_dir)
+    _install_tmux_customization(env_settings_dir, user_home_dir)
     _install_virtualenv_customizations(env_settings_dir)
 
 def update():

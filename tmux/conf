@@ -1,0 +1,125 @@
+# Setup the Binds {{{
+
+# Prefix  to use Control+A instead of Control+B
+unbind C-b
+set-option -g prefix C-a
+bind a send-prefix
+
+# Pane movement
+bind Left select-pane -L
+bind Down select-pane -D
+bind Up select-pane -U
+bind Right select-pane -R
+
+# Reload config on BindKey + R
+bind r source-file ~/.tmux.conf \; display-message "Config reloaded..."
+
+
+# Last active window on 2xControl+A
+unbind l
+bind C-a last-window
+
+# hsplit on Escape + |
+unbind %
+bind | split-window -h
+
+# vsplit on Escape + -
+unbind '"'
+bind - split-window -v
+
+# Copy mode
+setw -g mode-keys vi
+unbind [
+unbind ]
+bind Escape copy-mode
+unbind p
+bind p paste-buffer
+bind -t vi-copy v begin-selection
+bind -t vi-copy y copy-selection
+
+# Set default command to use system clipboard
+set-option -g default-command "reattach-to-user-namespace -l zsh"
+bind C-c run "tmux save-buffer - | reattach-to-user-namespace pbcopy"
+bind C-v run "tmux set-buffer $(reattach-to-user-namespace pbpaste);tmux paste-buffer"
+
+# Monitor Activity
+bind m set-window-option monitor-activity
+
+# Titles {{{
+set-window-option -g automatic-rename on
+# }}}
+
+# Relax!
+set -sg escape-time 0
+set -sg repeat-time 600
+
+# Options {{{
+set-option -g base-index 1
+set-option -g display-time 2000
+set-option -g mouse-select-pane on
+set-option -g mouse-resize-pane on
+set-option -g mouse-utf8 on
+set-option -g mouse-select-window on
+set-option -g pane-active-border-fg blue
+set-option -g pane-active-border-bg black
+set-option -g pane-border-fg white
+set-option -g pane-border-bg black
+set-option -g status-keys vi
+set-option -g history-limit 8192
+set-option -s escape-time 100
+# }}}
+
+# Set window notifications
+setw -g monitor-activity on
+set -g visual-activity on
+
+# 256 colors 
+set -g default-terminal "screen-256color"
+
+# Bad Wolf
+set -g status-fg white
+set -g status-bg colour234
+set -g window-status-activity-attr bold
+set -g pane-border-fg colour245
+set -g pane-active-border-fg colour39
+set -g message-fg colour16
+set -g message-bg colour221
+set -g message-attr bold
+
+# Custom status bar
+# Powerline symbols: 
+set-option -g status on
+set-option -g status-interval 2
+set-option -g status-utf8 on
+set-option -g status-justify "centre"
+set-option -g status-left-length 60
+set-option -g status-right-length 90
+set-option -g status-left "#(~/.env_settings/tmux/tmux-powerline/status-left.sh)"
+set-option -g status-right "#(~/.env_settings/tmux/tmux-powerline/status-right.sh)"
+
+# Powerline Theme:
+#[fg=white,bg=colour39,noreverse,bold]
+#green hostname: fg=colour22,bg=colour148
+#set -g status-left '#[fg=colour235,bg=colour252,bold] #S #[fg=colour252,bg=colour238,nobold]#[fg=colour245,bg=colour238,bold] #(whoami) #[fg=colour238,bg=colour234,nobold]'
+#set -g status-right '#[fg=colour238,bg=colour234,nobold]#[fg=colour245,bg=colour238] #h #[fg=colour252]#[fg=colour235,bg=colour252,bold] %H:%M %D '
+#set -g window-status-format "#[fg=white,bg=colour234] #I #W "
+#set -g window-status-current-format "#[fg=colour234,bg=colour39]#[fg=colour25,bg=colour39,noreverse,bold] #I #W #[fg=colour39,bg=colour234,nobold]"
+
+
+
+# Highlight active window
+set-window-option -g window-status-current-bg red
+
+#Always resize tmux to our terminal
+setw -g aggressive-resize on
+
+# Start counting from 1 on pane and window number
+set -g base-index 1
+setw -g pane-base-index 1
+
+#test
+set-window-option -g mode-mouse on
+#/test
+
+
+
