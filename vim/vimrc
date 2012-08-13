@@ -15,6 +15,8 @@ call pathogen#helptags()
 filetype plugin on
 filetype indent on
 
+set laststatus=2   " Always show the statusline
+set encoding=utf-8 " Necessary to show Unicode glyphs
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -110,7 +112,6 @@ else
   set nu
 endif
 
-set encoding=utf8
 try
     lang en_US
 catch
