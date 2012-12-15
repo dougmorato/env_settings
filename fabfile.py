@@ -133,7 +133,7 @@ def _install_dotfiles_customizations(env_settings_dir, user_home_dir):
         for dotfile in dotfiles_list:
             if exists(".%s" % dotfile):
                 run("rm -f %s*" % dotfile)
-        run("ln -s %s/%s  .%s" % (dotfiles_conf_dir, dotfile, dotfile))
+            run("ln -s %s/%s  .%s" % (dotfiles_conf_dir, dotfile, dotfile))
 
 def _install_tmux_customization(env_settings_dir, user_home_dir):
     '''Install Tmux customization'''
