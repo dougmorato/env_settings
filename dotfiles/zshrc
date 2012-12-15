@@ -16,7 +16,7 @@ export ZSH_THEME="dfamorato"
 
 # Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
 # Example format: plugins=(rails git textmate ruby lighthouse)
-plugins=(git brew github osx pip vagrant fabric command-coloring gem lol ruby rails cloudapp extract bundler django rake rbenv virtualenvwrapper knife)
+plugins=(git brew github osx pip vagrant fabric command-coloring gem lol ruby rails cloudapp extract bundler django rake rbenv virtualenvwrapper knife coffee git-extras heroku jira mvn)
 
 source $ZSH/oh-my-zsh.sh
 
