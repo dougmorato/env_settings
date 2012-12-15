@@ -119,7 +119,7 @@ endtry
 
 set ffs=unix,dos,mac "Default file types
 
-"Lets display a color column on 85 char so we can see when we write too log of a code
+"Lets display a color column on 80 char so we can see when we write too log of a code
 set colorcolumn=80
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -394,7 +394,7 @@ nmap <silent> <F4> :NERDTreeToggle<CR>
 let g:NERDTreeWinSize = 32
 
 """"""""""""""""""""""""""""
-" =>  Tootle Tagbar
+" =>  Toogle Tagbar
 """"""""""""""""""""""""""""
 let g:tagbar_width = 32
 let g:tagbar_sort = 1
@@ -403,10 +403,10 @@ let g:tagbar_autoshowtag = 1
 let g:tagbar_autoclose = 1
 nmap <silent> <F3> :TagbarToggle <CR>
 
-"""""""""""""""""""""""""""""
-" => Check PEP8 on files
-""""""""""""""""""""""""""""""
-let g:pep8_map='<leader>8'
+"""""""""""""""""""""""""""""""""""""""""""""
+" => Call Flake8 everytime we save a python file 
+"""""""""""""""""""""""""""""""""""""""""""""
+autocmd BufWritePost *.py call Flake8()
 
 """""""""""""""""""""""""""""""""""""""""""""
 " => Python Tab Completion and documentation
@@ -445,15 +445,7 @@ map <c-h> <c-w>h
 " open a new vertical split and switch over to it
 nnoremap <leader>v <C-w>v<C-w>l
 
-"""""""""""""""""""""""""""""""""""""""""""
-" => Press :td to check all TODO and FIXME
-"""""""""""""""""""""""""""""""""""""""""""
-map <leader>td <Plug>TaskList
 
-"""""""""""""""""""""""""""""""""""""""""""""""
-" => pyflakes not to use the quickfix window
-"""""""""""""""""""""""""""""""""""""""""""""""
-let g:pyflakes_use_quickfix = 0
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Spell checking
@@ -483,6 +475,14 @@ endif
 """"""""""""""""""""""""""""""
 let Grep_Skip_Dirs = 'RCS CVS SCCS .git .hg build .svn generated'
 set grepprg=/bin/grep\ -nH
+
+""""""""""""""""""""""""""""""
+" => Rainbow Parentheses
+""""""""""""""""""""""""""""""
+au VimEnter * RainbowParenthesesToggle
+au Syntax * RainbowParenthesesLoadRound
+au Syntax * RainbowParenthesesLoadSquare
+au Syntax * RainbowParenthesesLoadBraces
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => MISC

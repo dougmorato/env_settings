@@ -1,0 +1,25 @@
+[ui]
+username=Douglas Morato <dm@craft.io>
+ssh = ssh -C
+ignore=~/.hgignore_global
+
+[extensions]
+convert=
+extdiff=
+graphlog=
+patchbomb=
+record=
+
+[alias]
+blame=annotate -u -n
+rec=record
+
+[email]
+method = smtp
+from = Douglas Morato <dm@craft.io>
+
+[merge-tools]
+threesome.executable = vim
+threesome.args = -f $base $local $other $output -c 'ThreesomeInit'
+threesome.premerge = keep
+threesome.priority = 1
