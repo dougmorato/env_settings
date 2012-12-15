@@ -45,7 +45,7 @@ vim_repositories = [
     "git://github.com/kien/rainbow_parentheses.vim.git",
     "git://github.com/pangloss/vim-javascript.git",
     "git://github.com/ajf/puppet-vim.git",
-    "git://github.com/rosstimson/scala-vim-support.git"
+    "git://github.com/rosstimson/scala-vim-support.git",
     "git://github.com/kchmck/vim-coffee-script.git",
     "git://github.com/vim-scripts/csv.vim.git",
     "git://github.com/mmalecki/vim-node.js.git",
