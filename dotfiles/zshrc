@@ -1,0 +1,41 @@
+# Path to your oh-my-zsh configuration.
+export ZSH=$HOME/.env_settings/zsh/oh-my-zsh
+
+# Set to the name theme to load.
+# Look in ~/.oh-my-zsh/themes/
+export ZSH_THEME="dfamorato"
+
+# Set to this to use case-sensitive completion
+# export CASE_SENSITIVE="true"
+
+# Comment this out to disable weekly auto-update checks
+# export DISABLE_AUTO_UPDATE="true"
+
+# Uncomment following line if you want to disable colors in ls
+# export DISABLE_LS_COLORS="true"
+
+# Which plugins would you like to load? (plugins can be found in ~/.oh-my-zsh/plugins/*)
+# Example format: plugins=(rails git textmate ruby lighthouse)
+plugins=(git brew github osx pip vagrant fabric command-coloring gem lol ruby rails cloudapp extract bundler django rake rbenv virtualenvwrapper knife)
+
+source $ZSH/oh-my-zsh.sh
+
+# Customize to your needs...
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_RESPECT_VIRTUALENV=true
+export WORKON_HOME=$HOME/.virtualenvs
+if [ -f /usr/local/bin/virtualenvwrapper.sh ]; then
+    source /usr/local/bin/virtualenvwrapper.sh
+fi
+
+#make RBenv work
+if which rbenv > /dev/null; then eval "$(rbenv init -)"; fi
+
+#To use Homebrew's directories rather than ~/.rbenv
+export RBENV_ROOT=/usr/local/opt/rbenv
+
+#let's make sure that all compilations happens for i386 and x86_64
+export ARCHFLAGS='-arch i386 -arch x86_64'
+
+#make sure homebrew binaries are called before standard bin and call rbenv
+export PATH=/usr/local/bin:$HOME/.rbenv/bin:$PATH
