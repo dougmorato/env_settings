@@ -125,7 +125,7 @@ def _install_dotfiles_customizations(env_settings_dir, user_home_dir):
     ''' Install additional dotfiles customizations'''
     
     #Directory that contains the dotfiles
-    dotfiles_conf_dir = env_settings_dir + "/dotfiles"
+    dotfiles_conf_dir = env_settings_dir + "/dotfiles/"
    
     #Check if dotfile exist, delete it and create new simlynks
     with cd(user_home_dir):
