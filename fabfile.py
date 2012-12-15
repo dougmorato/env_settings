@@ -14,7 +14,8 @@ from fabric.contrib.files import exists
 
 pip_packages = [
         "virtualenv",
-        "virtualenvwrapper"
+        "virtualenvwrapper",
+        "flake8",
 ]
 
 vim_repositories = [
@@ -140,7 +141,7 @@ def _install_tmux_customization(env_settings_dir, user_home_dir):
 
     # Pull tmux configurations from github repo
     with cd(env_settings_dir):
-        run("git submodule add -f"
+        run("git submodule add -f "
             "git://github.com/dfamorato/tmux-powerline.git %s" % tmux_conf_dir)
 
 def customize():
