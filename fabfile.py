@@ -155,7 +155,7 @@ def customize():
     elif target_os in ("mac", "MAC", "Mac"):
         #Install homebrew packages if it's  mac
         for package in brew_packages:
-            run("brew install %s" % package)
+            run("brew install --force %s" % package)
 
     #Install all pip packages necessary
     for package in pip_packages:
