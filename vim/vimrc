@@ -8,8 +8,8 @@ set nocompatible
 set history=1000
 
 " Enable the pathogen
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+call pathogen#infect()
+
 
 " enable filetype plugin after pathogen plugin 
 filetype plugin on
