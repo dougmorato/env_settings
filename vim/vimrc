@@ -44,6 +44,15 @@ autocmd filetype gitcommit,rst,markdown setlocal spell spelllang=en_us
 "Only works with Vim 7.3 and up
 set clipboard=unnamed
 
+" The first line sets a mapping so that pressing F2 in normal mode will invert 
+" the 'paste' option, and will then show the value of that option. 
+" The second line allows you to press F2 when in insert mode, to toggle 'paste'
+" on and off. 
+" The third line enables displaying whether 'paste' is turned on in insert mode.
+nnoremap <F2> :set invpaste paste?<CR>
+set pastetoggle=<F2>
+set showmode
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
