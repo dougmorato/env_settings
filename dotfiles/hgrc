@@ -1,5 +1,5 @@
 [ui]
-username=Douglas Morato <dm@craft.io>
+username=Douglas Morato <dm@corp.io>
 ssh = ssh -C
 ignore=~/.hgignore_global
 
@@ -9,6 +9,7 @@ extdiff=
 graphlog=
 patchbomb=
 record=
+prompt=~/.env_settings/hg-prompt.py
 
 [alias]
 blame=annotate -u -n
