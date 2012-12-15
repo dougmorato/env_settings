@@ -75,6 +75,7 @@ dotfiles_list = [
             "irbrc",
             "tmux.conf",
             "vimrc",
+            "zshrc",
 ]
 
 brew_packages = [
