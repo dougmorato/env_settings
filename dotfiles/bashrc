@@ -34,5 +34,5 @@ function tmuxify_command_prompt {
 }
 
 load_homebrew_command_completions
-source_modules
-tmuxify_command_prompt
+# source_modules
+# tmuxify_command_prompt
