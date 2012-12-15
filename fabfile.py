@@ -13,9 +13,9 @@ from fabric.api import run, cd, prompt, sudo
 from fabric.contrib.files import exists
 
 pip_packages = [
-        "virtualenv",
-        "virtualenvwrapper",
-        "flake8",
+    "virtualenv",
+    "virtualenvwrapper",
+    "flake8",
 ]
 
 vim_repositories = [
@@ -64,34 +64,35 @@ vim_repositories = [
 ]
 
 dotfiles_list = [
-            "ackrc",
-            "bash_profile",
-            "bashrc",
-            "gemrc",
-            "gitconfig",
-            "gitignore_global",
-            "hgignore_global",
-            "hgrc",
-            "irbrc",
-            "tmux.conf",
-            "vimrc",
-            "zshrc",
+    "ackrc",
+    "bash_profile",
+    "bashrc",
+    "gemrc",
+    "gitconfig",
+    "gitignore_global",
+    "hgignore_global",
+    "hgrc",
+    "irbrc",
+    "tmux.conf",
+    "vimrc",
+    "zshrc",
 ]
 
 brew_packages = [
-                "autojump",
-                "bash",
-                "bash-completion",
-                "macvim --override-system-vim",
-                "reattach-to-user-namespace",
-                "ack",
-                "tmux",
-                "tree",
-                "rbenv",
-                "ruby-build",
-                "wget",
-                "ctags"
+    "autojump",
+    "bash",
+    "bash-completion",
+    "macvim --override-system-vim",
+    "reattach-to-user-namespace",
+    "ack",
+    "tmux",
+    "tree",
+    "rbenv",
+    "ruby-build",
+    "wget",
+    "ctags"
 ]
+
 
 def _install_vim_customizations(env_settings_dir, user_home_dir):
     "Setup and install vim customizations."
@@ -136,6 +137,7 @@ def _install_dotfiles_customizations(env_settings_dir, user_home_dir):
                 run("rm -f %s*" % dotfile)
             run("ln -s %s/%s  .%s" % (dotfiles_conf_dir, dotfile, dotfile))
 
+
 def _install_tmux_customization(env_settings_dir, user_home_dir):
     '''Install Tmux customization'''
     tmux_conf_dir = env_settings_dir + "/tmux/tmux-powerline"
@@ -145,9 +147,10 @@ def _install_tmux_customization(env_settings_dir, user_home_dir):
         run("git submodule add -f "
             "git://github.com/dfamorato/tmux-powerline.git %s" % tmux_conf_dir)
 
+
 def customize():
     target_os = prompt("What is the OS you are deploying to: mac, ubuntu or "
-            "fedora: ")
+                       "fedora: ")
     if target_os in ("ubuntu", "UBUNTU"):
         sudo("apt-get update")
         sudo("apt-get install -y rake ruby-dev vim-nox")
@@ -177,12 +180,14 @@ def customize():
     #TODO: Prompt user for his fork of the env_settings project
     #Clone base settings from github
     with cd(user_home_dir):
-        run('git clone git://github.com/dfamorato/env_settings.git .env_settings')
+        run("git clone git://github.com/dfamorato/env_settings.git "
+            ".env_settings")
     env_settings_dir = user_home_dir + "/.env_settings"
 
     #Add git upstream server for future updates on this project
     with cd(env_settings_dir):
-        run("git remote add upstream git://github.com/dfamorato/env_settings.git")
+        run("git remote add upstream "
+            "git://github.com/dfamorato/env_settings.git")
 
     #start to install customizations
     _install_vim_customizations(env_settings_dir, user_home_dir)
