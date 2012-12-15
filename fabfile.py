@@ -108,28 +108,33 @@ def _install_vim_customizations(env_settings_dir, user_home_dir):
                 repository_dir = repository_guess.rstrip('.git')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('git submodule add -f %s %s' %
-                            (repository, repository_bundle_dir))
+                    (repository, repository_bundle_dir))
             elif 'hg' in repository_list[0]:
                 repository_dir = repository_guess.rstrip('.hg')
                 repository_bundle_dir = vim_bundle_dir + repository_dir
                 run('hg clone %s %s' % (repository, repository_bundle_dir))
 
         #install the vim colorschemes
-        run("git submodule add -f git://github.com/dfamorato/vim-colorschemes.git"
-                " %s/vim/bundle/colorscheme" % env_settings_dir)
+        run("git submodule add -f "
+            "git://github.com/dfamorato/vim-colorschemes.git"
+            " %s/vim/bundle/colorscheme" % env_settings_dir)
+
 
 def _install_zsh_customizations(env_settings_dir, user_home_dir):
     '''Install "oh my zsh"'''
     with cd(env_settings_dir):
-        run("git submodule add -f git://github.com/dfamorato/oh-my-zsh.git"
-                " ./oh-my-zsh")
+        run("git submodule add -f git://github.com/robbyrussell/oh-my-zsh.git"
+            " ./oh-my-zsh")
+        run("curl -O ./oh-my-zsh/themes/dfamorato.zsh-theme "
+            "https://raw.github.com/dfamorato/oh-my-zsh/master/themes/dfamorato.zsh-theme")
+
 
 def _install_dotfiles_customizations(env_settings_dir, user_home_dir):
     ''' Install additional dotfiles customizations'''
-    
+
     #Directory that contains the dotfiles
     dotfiles_conf_dir = env_settings_dir + "/dotfiles"
-   
+
     #Check if dotfile exist, delete it and create new simlynks
     with cd(user_home_dir):
         for dotfile in dotfiles_list:
