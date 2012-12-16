@@ -41,7 +41,6 @@ vim_repositories = [
     "git://github.com/nvie/vim-flake8.git",
     "git://github.com/spf13/PIV.git",
     "git://github.com/ervandew/supertab.git",
-    "git://github.com/spf13/snipmate.vim.git",
     "git://github.com/Lokaltog/vim-powerline.git",
     "git://github.com/kien/rainbow_parentheses.vim.git",
     "git://github.com/pangloss/vim-javascript.git",
