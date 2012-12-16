@@ -167,6 +167,10 @@ def customize():
         #    run("brew install %s" % package)
         pass
 
+    elif target_os in ("fedora", "Fedora", "FEDORA"):
+        # TODO: Write formulas for  fedora / centos / redhat
+        pass
+
     #Install all pip packages necessary
     for package in pip_packages:
         sudo("pip install %s" % package)
