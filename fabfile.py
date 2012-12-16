@@ -149,7 +149,8 @@ def _install_tmux_customization(env_settings_dir, user_home_dir):
     # Pull tmux configurations from github repo
     with cd(env_settings_dir):
         run("git submodule add -f "
-            "git://github.com/dfamorato/tmux-powerline.git tmux-powerline")
+            "git://github.com/dfamorato/tmux-powerline.git %s/tmux-powerline"
+            % env_settings_dir)
 
 
 def customize():
