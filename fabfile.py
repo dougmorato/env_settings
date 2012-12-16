@@ -124,7 +124,7 @@ def _install_zsh_customizations(env_settings_dir, user_home_dir):
     '''Install "oh my zsh"'''
     with cd(env_settings_dir):
         run("git submodule add -f git://github.com/robbyrussell/oh-my-zsh.git"
-            " ./oh-my-zsh")
+            "%s/oh-my-zsh" % env_settings_dir)
         run("cp -f ./dotfiles/dfamorato.zsh-theme "
             "./oh-my-zsh/themes/dfamorato.zsh-theme")
 
