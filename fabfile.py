@@ -145,12 +145,11 @@ def _install_dotfiles_customizations(env_settings_dir, user_home_dir):
 
 def _install_tmux_customization(env_settings_dir, user_home_dir):
     '''Install Tmux customization'''
-    tmux_conf_dir = env_settings_dir + "/tmux/tmux-powerline"
 
     # Pull tmux configurations from github repo
     with cd(env_settings_dir):
         run("git submodule add -f "
-            "git://github.com/dfamorato/tmux-powerline.git %s" % tmux_conf_dir)
+            "git://github.com/dfamorato/tmux-powerline.git tmux-powerline")
 
 
 def customize():
