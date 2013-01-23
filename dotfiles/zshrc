@@ -42,3 +42,8 @@ export PATH=/usr/local/bin:$HOME/.rbenv/bin:$PATH
 
 #Disable virtualenv prompt because our ZSH already displays it
 export VIRTUAL_ENV_DISABLE_PROMPT='1'
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+alias ll='ls -lahrt'
