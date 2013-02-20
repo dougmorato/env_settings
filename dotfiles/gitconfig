@@ -1,16 +1,24 @@
 [user]
     name = Douglas Morato
-    email = dm@craft.io
+    email = dm@corp.io
 [core]
     editor = vim
     excludesfile = ~/.gitignore_global
+	autocrlf = input
 [color]
-    diff = yes
-    status = yes
-    branch = yes
-    ui = auto
+    diff = true
+    status = true
+    branch = true
+    ui = true
+    interactive = true
+    grep = true
+    showbranch = true
 [merge]
     tool = threesome
 [mergetool "threesome"]
     cmd = "vim -f $BASE $LOCAL $REMOTE $MERGED -c 'ThreesomeInit'"
     trustExitCode = true
+[push]
+	default = simple
+[color "diff"]
+	whitespace = red reverse
