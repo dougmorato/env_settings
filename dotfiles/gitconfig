@@ -20,5 +20,3 @@
     trustExitCode = true
 [push]
 	default = simple
-[color "diff"]
-	whitespace = red reverse
