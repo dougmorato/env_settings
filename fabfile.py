@@ -58,8 +58,9 @@ vim_repositories = [
     "git://github.com/kien/ctrlp.vim.git",
     "git://github.com/tomtom/tlib_vim.git",
     "git://github.com/MarcWeber/vim-addon-mw-utils.git",
-    "git://github.com/garbas/vim-snipmate.git",
-    "git://github.com/honza/snipmate-snippets.git",
+    "git://github.com/MarcWeber/ultisnips.git",
+    "git://github.com/honza/vim-snippets.git",
+    "git://github.com/tpope/vim-git.git",
 ]
 
 dotfiles_list = [
