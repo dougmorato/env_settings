@@ -60,7 +60,6 @@ vim_repositories = [
     "git://github.com/MarcWeber/vim-addon-mw-utils.git",
     "git://github.com/MarcWeber/ultisnips.git",
     "git://github.com/honza/vim-snippets.git",
-    "git://github.com/tpope/vim-git.git",
 ]
 
 dotfiles_list = [
